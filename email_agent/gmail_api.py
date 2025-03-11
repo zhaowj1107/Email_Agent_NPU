@@ -16,8 +16,8 @@ def authenticate_gmail():
     creds = None
 
     # 加载保存的 token
-    if os.path.exists("token.pickle"):
-        with open("token.pickle", "rb") as token:
+    if os.path.exists("token_gmail.pickle"):
+        with open("token_gmail.pickle", "rb") as token:
             creds = pickle.load(token)
 
     # 如果没有凭据或凭据失效，则重新认证
@@ -33,7 +33,7 @@ def authenticate_gmail():
             creds = flow.run_local_server(port=0)
 
         # 保存新的 token
-        with open("token.pickle", "wb") as token:
+        with open("token_gmail.pickle", "wb") as token:
             pickle.dump(creds, token)
 
     return build("gmail", "v1", credentials=creds)
