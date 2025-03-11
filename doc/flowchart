@@ -1,0 +1,92 @@
+flowchart TD
+    Start([Start]) --> Monitor[Monitor Emails]
+    Monitor --> NewEmail{New Email?}
+    NewEmail -->|No| Monitor
+    NewEmail -->|Yes| Parse[Parse Email Content]
+    
+    Parse --> PrepareContext[Prepare Context]
+    
+    subgraph RAG Processing
+        PrepareContext --> FetchHistory[Fetch Historical Emails]
+        FetchHistory --> FetchNotes[Fetch Related Notes]
+        FetchNotes --> CreateEmbedding[Generate Current Email Embedding]
+        CreateEmbedding --> QueryVector[Query Similar Vectors]
+        QueryVector --> BuildContext[Build Context Package]
+    end
+    
+    BuildContext --> LLMAnalysis[LLM Analysis]
+    
+    LLMAnalysis --> Classification{Email Classification}
+    
+    Classification -->|Spam/Irrelevant| Archive[Archive Processing]
+    Archive --> UpdateDB[Update Database]
+    
+    Classification -->|Regular Inquiry| AutoReply[Auto-Reply Process]
+    AutoReply --> ValidateReply{Validate Reply Content}
+    ValidateReply -->|Inappropriate| Alert2[Notify User for Review]
+    ValidateReply -->|Appropriate| SendReply[Send Reply]
+    SendReply --> NotifyUser1[Notify via Instant Message]
+    
+    Classification -->|Urgent/Important| Alert1[Urgent Processing]
+    Alert1 --> PrepareAlert[Prepare Alert Content]
+    PrepareAlert --> SendAlert[Send Instant Alert]
+    SendAlert --> WaitResponse{Wait for Response}
+    WaitResponse -->|Timeout| Escalate[Escalate Alert]
+    WaitResponse -->|Responded| MarkHandled[Mark as Handled]
+    
+    Classification -->|Contains Schedule| Schedule[Schedule Processing]
+    Schedule --> ExtractDateTime[Extract Date/Time]
+    ExtractDateTime --> CheckConflict{Check Calendar Conflicts}
+    CheckConflict -->|Conflict Found| NotifyConflict[Notify Conflict]
+    CheckConflict -->|No Conflict| CreateEvent[Create Calendar Event]
+    CreateEvent --> SendInvite[Send Meeting Invite]
+    
+    subgraph Daily Report Generation
+        UpdateDB --> CheckTime{Is it 8:00 PM?}
+        CheckTime -->|Yes| GenerateReport[Generate Daily Report]
+        GenerateReport --> CategoryStats[Calculate Category Statistics]
+        CategoryStats --> SummarizeKey[Summarize Key Events]
+        SummarizeKey --> SendReport[Send Report]
+        CheckTime -->|No| Continue([Continue Monitoring])
+    end
+    
+    UpdateDB --> Monitor
+    NotifyUser1 --> UpdateDB
+    MarkHandled --> UpdateDB
+    SendInvite --> UpdateDB
+    NotifyConflict --> UpdateDB
+    SendReport --> Monitor
+    Alert2 --> WaitUserInput[Wait for User Input]
+    WaitUserInput --> UpdateDB
+
+    style Start fill:#afd1f3
+    style Monitor fill:#f9d6d6
+    style LLMAnalysis fill:#f9e4b7
+    style Classification fill:#b7e7f9
+    
+    subgraph Legend
+        direction LR
+        Process[Process Node]
+        Decision{Decision Node}
+        Action([Action Node])
+        
+        style Process fill:#f9e4b7
+        style Decision fill:#b7e7f9
+        style Action fill:#afd1f3
+    end
+
+    style Start fill:#afd1f3,color:#0d47a1
+    style Monitor fill:#f9d6d6,color:#b71c1c
+    style LLMAnalysis fill:#f9e4b7,color:#e65100
+    style Classification fill:#b7e7f9,color:#00695c
+    
+    subgraph Legend
+        direction LR
+        Process[Process Node]
+        Decision{Decision Node}
+        Action([Action Node])
+        
+        style Process fill:#f9e4b7,color:#e65100
+        style Decision fill:#b7e7f9,color:#00695c
+        style Action fill:#afd1f3,color:#0d47a1
+    end

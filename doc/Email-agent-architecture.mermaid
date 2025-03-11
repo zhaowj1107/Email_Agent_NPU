@@ -1,0 +1,74 @@
+graph TB
+    subgraph "Data Sources"
+        Email[("Email Server\n(IMAP/SMTP)")]
+        Notes[("OneNote/Notion\nNotes")]
+        Calendar[("Calendar\n(Outlook/Google)")]
+    end
+
+    subgraph "Core System"
+        Monitor["Email Monitor\n24/7 Service"]
+        Parser["Email Parser"]
+        RAG["RAG System"]
+        LLM["LLM Engine\n(Llama/Deepseek)"]
+        VectorDB[("Vector Database")]
+        TaskEngine["Task Automation\nEngine"]
+    end
+
+    subgraph "Action Handlers"
+        Archive["Archive Handler"]
+        Reply["Auto-Reply Handler"]
+        Alert["Alert Handler"]
+        Schedule["Schedule Handler"]
+        Report["Report Generator"]
+    end
+
+    subgraph "Notification & Integration"
+        MessagingAPI["WhatsApp/WeChat\nAPI"]
+        CalendarAPI["Calendar API"]
+    end
+
+    %% Data Source Connections
+    Email -->|"Fetch Emails"| Monitor
+    Notes -->|"Reference Data"| RAG
+    Email -->|"Historical Emails"| RAG
+
+    %% Core Processing Flow
+    Monitor -->|"New Email"| Parser
+    Parser -->|"Processed Content"| LLM
+    RAG -->|"Context"| LLM
+    RAG -.->|"Store Embeddings"| VectorDB
+    VectorDB -.->|"Retrieve Context"| RAG
+
+    %% Task Engine Control
+    LLM -->|"Classification &\nAction Decision"| TaskEngine
+    TaskEngine -->|"Archive Task"| Archive
+    TaskEngine -->|"Reply Task"| Reply
+    TaskEngine -->|"Alert Task"| Alert
+    TaskEngine -->|"Schedule Task"| Schedule
+    TaskEngine -->|"Daily Summary"| Report
+
+    %% External Integration
+    Reply --> Email
+    Archive --> Email
+    Alert --> MessagingAPI
+    Schedule --> CalendarAPI
+    CalendarAPI --> Calendar
+    Report --> MessagingAPI
+
+    %% Styling
+    classDef database fill:#f5f5f5,stroke:#333,stroke-width:2px
+    classDef process fill:#e1f5fe,stroke:#333,stroke-width:1px
+    classDef api fill:#fff3e0,stroke:#333,stroke-width:1px
+    
+    class Email,Notes,Calendar,VectorDB database
+    class Monitor,Parser,RAG,LLM,TaskEngine process
+    class MessagingAPI,CalendarAPI api
+
+
+    classDef database fill:#e3f2fd,stroke:#64b5f6,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#ab47bc,stroke-width:1px
+    classDef api fill:#fff8e1,stroke:#ffca28,stroke-width:1px
+
+    classDef database fill:#e3f2fd,stroke:#64b5f6,stroke-width:2px,color:#1565c0
+    classDef process fill:#f3e5f5,stroke:#ab47bc,stroke-width:1px,color:#7b1fa2
+    classDef api fill:#fff8e1,stroke:#ffca28,stroke-width:1px,color:#ff8f00
