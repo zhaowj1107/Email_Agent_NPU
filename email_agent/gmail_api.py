@@ -7,6 +7,7 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
 # Gmail API 需要的作用域（权限）
 SCOPES = ["https://www.googleapis.com/auth/gmail.modify"]
@@ -88,6 +89,53 @@ def send_email(service, sender, to, subject, body):
     message = create_email(sender, to, subject, body)
     message = service.users().messages().send(userId="me", body=message).execute()
     print(f"Email sent! Message ID: {message['id']}")
+
+
+def archive_emails(service, message_id=None, query=None):
+    """Archives a specific email by ID or emails matching the given query.
+
+    Args:
+        service: The Gmail API service object.
+        message_id: The ID of the specific email to archive. If provided, query is ignored.
+        query: The search query to find emails to archive. Only used if message_id is None.
+               Example: "from:someone@example.com subject:Important"
+    """
+    try:
+        messages = []
+        
+        if message_id:
+            # Archive a specific email by ID
+            messages = [{"id": message_id}]
+            print(f"Archiving specific email with ID: {message_id}")
+        elif query:
+            # List messages matching the query
+            results = service.users().messages().list(userId="me", q=query).execute()
+            messages = results.get("messages", [])
+            
+            if not messages:
+                print("No messages found matching the query.")
+                return
+        else:
+            print("Error: Either message_id or query must be provided.")
+            return
+
+        for message in messages:
+            message_id = message["id"]
+
+            # Modify the message to remove the INBOX label
+            modify_request_body = {
+                "removeLabelIds": ["INBOX"]
+            }
+            service.users().messages().modify(
+                userId="me", id=message_id, body=modify_request_body
+            ).execute()
+
+            print(f"Archived message with ID: {message_id}")
+
+    except HttpError as error:
+        print(f"An error occurred: {error}")
+
+
 
 if __name__ == "__main__":
     service = authenticate_gmail()
