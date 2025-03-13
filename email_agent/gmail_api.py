@@ -136,6 +136,63 @@ def archive_emails(service, message_id=None, query=None):
         print(f"An error occurred: {error}")
 
 
+def simple_draft(service, sender_email, to_email, subject, message_content, prompt=None):
+    """
+    Generate a simple draft WITHOUT calling RAG
+    
+    Args:
+        service: The Gmail API service object
+        sender_email: The sender's email address
+        to_email: The recipient's email address
+        subject: Email subject line
+        message_content: Original content to be processed by deepseek
+        prompt: Custom prompt for deepseek (optional)
+    
+    Returns:
+        The created draft object
+    """
+    try:
+        from local_model.ds_api import deepseek
+        # 这里deepseek()是之前生邮件summary的prompt
+        # 考虑deepseek函数可以将prompt作为另一个参数传入
+        
+        # If no custom prompt is provided, use the default one
+        if not prompt:
+            # Default prompt that can be edited as needed
+            processed_content = deepseek(message_content)
+        else:
+            # Use custom prompt with deepseek
+            processed_content = deepseek(message_content)
+        
+        # Create a MIMEText message
+        message = MIMEText(processed_content)
+        message["to"] = to_email
+        message["from"] = sender_email
+        message["subject"] = subject
+        
+        # Encode the message to base64url format
+        encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
+        
+        # Create the draft message
+        draft = {
+            'message': {
+                'raw': encoded_message
+            }
+        }
+        
+        # Call the Gmail API to create the draft
+        created_draft = service.users().drafts().create(userId="me", body=draft).execute()
+        
+        print(f"Draft created successfully with ID: {created_draft['id']}")
+        return created_draft
+    
+    except ImportError:
+        print("Error: Could not import deepseek from local_model.ds_api")
+        return None
+    except HttpError as error:
+        print(f"An error occurred: {error}")
+        return None
+
 
 if __name__ == "__main__":
     service = authenticate_gmail()
