@@ -136,7 +136,7 @@ def archive_emails(service, message_id=None, query=None):
         print(f"An error occurred: {error}")
 
 
-def simple_draft(service, sender_email, to_email, subject, message_content, prompt=None):
+def simple_draft(service, sender_email, to_email, subject, message_content):
     """
     Generate a simple draft WITHOUT calling RAG
     
@@ -146,7 +146,6 @@ def simple_draft(service, sender_email, to_email, subject, message_content, prom
         to_email: The recipient's email address
         subject: Email subject line
         message_content: Original content to be processed by deepseek
-        prompt: Custom prompt for deepseek (optional)
     
     Returns:
         The created draft object
@@ -156,13 +155,18 @@ def simple_draft(service, sender_email, to_email, subject, message_content, prom
         # 这里deepseek()是之前生邮件summary的prompt
         # 考虑deepseek函数可以将prompt作为另一个参数传入
         
-        # If no custom prompt is provided, use the default one
-        if not prompt:
-            # Default prompt that can be edited as needed
-            processed_content = deepseek(message_content)
-        else:
-            # Use custom prompt with deepseek
-            processed_content = deepseek(message_content)
+        # Define the prompt directly within the function
+        # This prompt can be easily edited as needed
+        prompt = """
+        这是邮件的正文，请根据内容生成一个回复邮件的草稿
+        要求：
+        
+        """
+        
+        # Process the content using deepseek with the defined prompt
+        # Note: The current deepseek function doesn't accept a prompt parameter
+        # If deepseek function is updated to accept a prompt, this should be modified
+        processed_content = deepseek(message_content)
         
         # Create a MIMEText message
         message = MIMEText(processed_content)
