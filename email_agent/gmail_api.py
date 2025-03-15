@@ -252,7 +252,7 @@ def draft_rag(service, sender_email, to_email, subject, message_content):
         
         # 步骤3: 赋值prompt变量
         prompt = f"""
-        请根据以下信息生成一封专业的邮件回复草稿:
+        请根据以下信息生成1封专业的邮件回复草稿:
         
         原始邮件主题: {subject}
         
