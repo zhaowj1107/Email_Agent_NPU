@@ -90,6 +90,56 @@ def send_email(service, sender, to, subject, body):
     message = service.users().messages().send(userId="me", body=message).execute()
     print(f"Email sent! Message ID: {message['id']}")
 
+def reply_email(service, sender, to, subject, body, thread_id=None, message_id=None):
+    """
+    Reply to an existing email thread.
+    
+    Args:
+        service: The Gmail API service object
+        sender: The sender's email address
+        to: The recipient's email address
+        subject: The email subject (will be prefixed with 'Re:' if not already)
+        body: The email body
+        thread_id: The ID of the thread to reply to (optional)
+        message_id: The ID of the specific message to reply to (optional)
+    
+    Returns:
+        dict: The sent message details or None if an error occurred
+    """
+    try:
+        # Ensure subject has 'Re:' prefix
+        if not subject.startswith('Re:'):
+            subject = f'Re: {subject}'
+        
+        # Create a MIMEText message
+        message = MIMEText(body)
+        message['to'] = to
+        message['from'] = sender
+        message['subject'] = subject
+        
+        # If thread_id is provided, include it in headers
+        raw_message = {'raw': base64.urlsafe_b64encode(message.as_bytes()).decode()}
+        
+        if thread_id:
+            # Add the threadId to the request
+            sent_message = service.users().messages().send(
+                userId='me', 
+                body=raw_message,
+                threadId=thread_id
+            ).execute()
+        else:
+            # Standard send without threadId
+            sent_message = service.users().messages().send(
+                userId='me', 
+                body=raw_message
+            ).execute()
+        
+        print(f'Reply sent! Message ID: {sent_message["id"]}')
+        return sent_message
+    
+    except HttpError as error:
+        print(f'An error occurred: {error}')
+        return None
 
 def archive_emails(service, message_id=None, query=None):
     """Archives a specific email by ID or emails matching the given query.
@@ -252,7 +302,7 @@ def draft_rag(service, sender_email, to_email, subject, message_content):
         
         # 步骤3: 赋值prompt变量
         prompt = f"""
-        请根据以下信息生成1封专业的邮件回复草稿:
+        请根据以下信息生成一封专业的邮件回复草稿:
         
         原始邮件主题: {subject}
         
