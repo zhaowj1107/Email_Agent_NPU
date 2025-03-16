@@ -213,3 +213,11 @@ def process_email(email_data, categorization_prompt=None, calendar_prompt=None):
     }
     
     return result
+
+if __name__ == "__main__":
+    # Test the categorization function
+    email_data = {
+        "sender": "test@example.com",
+        "subject": "Test Email",
+        "body": "This is a test email."
+
