@@ -47,7 +47,8 @@ def main():
             reply_result = ga.reply_email(service, sender_email, email["sender"], email["subject"], email["body"])
             gc.check_calendar_need(email, category_custom)
             if reply_result:
-                print(f"Reply sent with Message ID: {reply_result['id']}")
+                # print(f"Reply sent with Message ID: {reply_result}")
+                print(f"Reply sent: \n {reply_result['body']}")
             else:
                 print("Failed to send reply")
     

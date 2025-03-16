@@ -1,262 +1,231 @@
-<Calendar> [2025-03-15 20:16:50] 2025-3-11T10:00:00 to 2025-3-11T12:00:00 | Subject: Christmas Day | Status: Created | Content: Celebrate Christmas
-<Email> [2025-03-15 20:30:53] To: zhaowj1107@gmail.com | Subject: Test Email from Python_0315 | Status: Sent | Content: Hello! This is a test email sent using Gmail API and Python.
-<Email> [2025-03-15 20:42:03] To: zhaowj1107@gmail.com | Subject: Test Email from Python_0310 | Status: Sent | Content: Hello! This is a test email sent using Gmail API and Python.
-<Email> [2025-03-15 23:36:40] To: zhaowj1107@gmail.com | Subject: Test Email from Python_0310 | Status: Sent | Content: Hello! This is a test email sent using Gmail API and Python.
-<Email> [2025-03-15 23:37:18] To: zhaowj1107@gmail.com | Subject: Draft Test - Meeting Preparation | Status: Draft | Content: 
-    Dear Team,
-    
-    I would like to discuss our project progress at the upcoming meeting.
-    Please prepare updates on your assigned tasks.
-    
-    The meeting is scheduled for Friday at 2 PM.
-    
-    Best regards,
-    Project Manager
-    
-<Email> [2025-03-15 23:37:52] To: zhaowj1107@gmail.com | Subject: Re: Project Status Inquiry | Status: Reply | Content: Here's the reply:
 
-Subject: Re: Project Status Inquiry
+<Email> [2025-03-16 11:50:41] To: None | Subject: Q2 Project progress meeting | Status: Archived | Content: Hi team,
 
-Dear [Client],
 
-Thank you for your email seeking an update on our AI project's status. I appreciate your interest in the project's progress.
 
-Regarding the project timeline, I'm happy to report that the initial prototype is on track for this week. The team has made significant progress, and we're confident of delivering the first prototype within the expected timeframe.
+Let's have our weekly team meeting next Tuesday (2025-03-19) from 14:00 to
 
-As for additional resources, we do require your input on the data requirements for the model. Could you please provide us with more information on the data you'd like to see in the initial prototype?
+15:00.
 
-We're committed to delivering a high-quality outcome, and I'm confident that we'll meet your expectations. I'll make sure to keep you updated on the project's progress.
+We will discuss the Q1 project progress. Location: Conference Room A
+
+
 
 Best regards,
-[Your Name]
-<Email> [2025-03-16 00:21:26] To: zhaowj1107@gmail.com | Subject: Test Email from Python_0310 | Status: Sent | Content: Hello! This is a test email sent using Gmail API and Python.
-<Email> [2025-03-16 00:21:59] To: zhaowj1107@gmail.com | Subject: Draft Test - Meeting Preparation | Status: Draft | Content: 
-    Dear Team,
-    
-    I would like to discuss our project progress at the upcoming meeting.
-    Please prepare updates on your assigned tasks.
-    
-    The meeting is scheduled for Friday at 2 PM.
-    
-    Best regards,
-    Project Manager
-    
-<Email> [2025-03-16 00:22:36] To: zhaowj1107@gmail.com | Subject: Re: Project Status Inquiry | Status: Reply | Content: Here's a reply:
 
-Subject: Re: Project Status Inquiry
-
-Dear [Client],
-
-Thank you for your email inquiring about our AI project's status. I'm happy to provide an update on our progress.
-
-Regarding the project timeline, I'm pleased to report that the initial prototype is on track to be delivered by this week. Our team has made significant progress, and we're confident in delivering the prototype within the expected timeframe.
-
-Regarding additional resources, our team does require your input on the data requirements for the model. Could you please provide us with more information on the data you'd like to see in the initial prototype? This will help us to deliver a high-quality outcome that meets your expectations.
-
-I appreciate your interest in the project's progress, and I'm committed to keeping you updated on the project's status. Please let me know if you have any questions or concerns.
-
-Best regards,
-[Your Name]
-<Email> [2025-03-16 00:38:05] To: fiveguysteam0@gmail.com | Subject: Re: Project Status Inquiry | Status: Draft | Content: Here's a reply:
-
-Subject: Re: Project Status Inquiry
-
-Dear [Client],
-
-Thank you for your email inquiring about our AI project's status. I'm happy to provide an update on our progress.
-
-Regarding the project timeline, I'm pleased to report that the initial prototype is on track to be delivered by this week. Our team has made significant progress, and we're confident in delivering the prototype within the expected timeframe.
-
-Regarding additional resources, our team does require your input on the data requirements for the model. Could you please provide us with more information on the data you'd like to see in the initial prototype? This will help us to deliver a high-quality outcome that meets your expectations.
-
-I appreciate your interest in the project's progress, and I'm committed to keeping you updated on the project's status. Please let me know if you have any questions or concerns.
-
-Best regards,
-[Your Name]
-<Email> [2025-03-16 00:40:04] To: fiveguysteam0@gmail.com | Subject: Re: Project Status Inquiry | Status: Reply | Content: Here's the revised reply:
-
-Subject: Re: Project Status Inquiry
-
-Dear [Client],
-
-Thank you for your email inquiring about the status of our AI project. I'm happy to provide an update on the project's progress.
-
-The initial prototype is on track to be delivered by this week. The team has made significant progress, and we're confident of delivering the first prototype within the expected timeframe.
-
-We do require your input on the data requirements for the model. Could you please provide us with more information on the data you'd like to see in the initial prototype?
-
-I'm committed to delivering a high-quality outcome that meets your expectations. I'll keep you updated on the project's progress.
-
-Best regards,
-[Your Name]
-<Email> [2025-03-16 00:58:58] To: fiveguysteam0@gmail.com | Subject: Re: Project Status Inquiry | Status: Draft | Content: Here's the revised reply:
-
-Subject: Re: Project Status Inquiry
-
-Dear [Client],
-
-Thank you for your email inquiring about the status of our AI project. I'm happy to provide an update on the project's progress.
-
-The initial prototype is on track to be delivered by this week. The team has made significant progress, and we're confident of delivering the first prototype within the expected timeframe.
-
-We do require your input on the data requirements for the model. Could you please provide us with more information on the data you'd like to see in the initial prototype?
-
-I'm committed to delivering a high-quality outcome that meets your expectations. I'll keep you updated on the project's progress.
-
-Best regards,
-[Your Name]
-<Email> [2025-03-16 01:10:51] To: fiveguysteam0@gmail.com | Subject: Re: Project Status Inquiry | Status: Draft | Content: Dear [Client],
-
-Thank you for your interest in the project's status. I'm happy to report that the initial prototype is on track for this week. Our team has made significant progress, and we're confident of delivering the first prototype within the expected timeframe.
-
-Regarding additional resources, we do need your input on the data requirements for the model. Could you please provide us with more information on the data you'd like to see in the initial prototype? This will help us to deliver a high-quality outcome that meets your expectations.
-
-I'll keep you updated on the project's progress and appreciate your continued support.
-
-Best regards,
-[Your Name]
-<Email> [2025-03-16 01:14:41] To: fiveguysteam0@gmail.com | Subject: Re: Project Status Inquiry | Status: Reply | Content: Dear [Client],
-
-Thank you for your email inquiring about the project's status. I'm happy to provide an update on the project's progress. The initial prototype is on track to be delivered by this week, and our team has made significant progress, confident of delivering the first prototype within the expected timeframe.
-
-We need your input on the data requirements for the model. Please provide us with more information on the data you'd like to see in the initial prototype. This will help us to deliver a high-quality outcome that meets your expectations.
-
-We're committed to delivering a high-quality outcome that meets your expectations. We'll keep you updated on the project's progress and appreciate your continued support.
-
-Best regards,
-[Your Name]
-<Email> [2025-03-16 01:38:26] To: fiveguysteam0@gmail.com | Subject: Re: Project Status Inquiry | Status: Reply | Content: Dear [Client],
-
-Thank you for your interest in the project's status. I'm happy to provide an update that the initial prototype is on track for this week. We've made significant progress and are confident in delivering the first prototype within the expected timeframe.
-
-Regarding additional resources, we need your input on the data requirements for the model. Please provide us with more information on the data you'd like to see in the initial prototype. This will help us deliver a high-quality outcome that meets your expectations.
-
-I'm committed to delivering a high-quality outcome that meets your expectations. I'll keep you updated on the project's progress and appreciate your continued support.
-
-Best regards,
-[Your Name]
-<Email> [2025-03-16 01:40:46] To: fiveguysteam0@gmail.com | Subject: Re: Project Status Inquiry | Status: Draft | Content: Here's the response:
-
-Subject: Re: Project Status Inquiry
-
-Dear [Client],
-
-Thank you for your interest in the project's status! I'm pleased to report that the initial prototype is indeed on track to be delivered this week. Our team has made significant progress and is confident that we will meet the expected deadline.
-
-Regarding the data requirements for the model, I'd appreciate more information from your side to ensure we deliver a high-quality outcome that meets your expectations. Could you please provide us with the data specifications you'd like to see in the initial prototype?
-
-I'm committed to delivering a successful project outcome and will keep you updated on the project's progress. Please let me know if you have any further questions or concerns. I'm looking forward to delivering a high-quality outcome that meets your expectations.
-
-Best regards,
-[Your Name]
-<Calendar> [2025-03-16 02:14:33] 2025-03-15T14:00:00 to 2025-03-15T15:00:00 | Subject: Weekly Team Meeting | Status: Created | Content: Discuss Q1 project progress
-<Email> [2025-03-16 02:17:33] To: team five_guys <fiveguysteam0@gmail.com> | Subject: Re: Q1 project progress meeting | Status: Reply | Content: Hi team,
-
-Let's have our weekly team meeting next Tuesday (2025-03-15) from 14:00 to
-15:00.
-We will discuss the Q1 project progress. Location: Conference Room A
-
-Best regards,
-Team Lead
-
-<Calendar> [2025-03-16 02:18:01] 2025-03-15T14:00:00 to 2025-03-15T15:00:00 | Subject: Weekly Team Meeting | Status: Created | Content: Discuss Q1 project progress
-<Email> [2025-03-16 02:55:04] To: team five_guys <fiveguysteam0@gmail.com> | Subject: Re: Q1 project progress meeting | Status: Draft | Content: Hi team,
-
-Let's have our weekly team meeting next Tuesday (2025-03-15) from 14:00 to
-15:00.
-We will discuss the Q1 project progress. Location: Conference Room A
-
-Best regards,
-Team Lead
-
-<Calendar> [2025-03-16 02:55:31] 2025-03-15T14:00:00 to 2025-03-15T15:00:00 | Subject: Weekly Team Meeting | Status: Created | Content: Discuss Q1 project progress
-<Email> [2025-03-16 03:08:03] To: fiveguysteam0@gmail.com | Subject: Re: Q1 project progress meeting | Status: Reply | Content: Dear team,
-
-Thank you for your email regarding the upcoming team meeting. I'm pleased to confirm that the meeting is scheduled for next Tuesday at 2:00 PM in Conference Room A. We will discuss the Q1 project progress and share updates on our progress.
-
-Please make sure to arrive at Conference Room A at 1:45 PM to get settled before the meeting starts.
-
-Looking forward to seeing you all there!
-
-Best regards,
 Team Lead
-<Calendar> [2025-03-16 03:08:29] 2025-03-15T14:00:00 to 2025-03-15T15:00:00 | Subject: Weekly Team Meeting | Status: Created | Content: Discuss Q1 project progress
-<Email> [2025-03-16 03:15:54] To: zhaowj1107@gmail.com | Subject: Test Email from Python_0310 | Status: Sent | Content: Hello! This is a test email sent using Gmail API and Python.
-<Email> [2025-03-16 03:16:23] To: zhaowj1107@gmail.com | Subject: Re: Draft Test - Meeting Preparation | Status: Draft | Content: 
-    Dear Team,
-    
-    I would like to discuss our project progress at the upcoming meeting.
-    Please prepare updates on your assigned tasks.
-    
-    The meeting is scheduled for Friday at 2 PM.
-    
-    Best regards,
-    Project Manager
-    
-<Email> [2025-03-16 03:16:56] To: zhaowj1107@gmail.com | Subject: Re: Project Status Inquiry | Status: Reply | Content: 
-    Subject: Project Status Inquiry
-    
-    Hello,
-    
-    I'm writing to inquire about the status of our AI project. 
-    We were expecting to see the initial prototype by this week.
-    Could you please provide an update on the timeline?
-    
-    Also, do you need any additional resources from our side?
-    
-    Regards,
-    Client
-    
-<Email> [2025-03-16 11:09:11] To: team five_guys <fiveguysteam0@gmail.com> | Subject: Re: Q2 Project progress meeting | Status: Draft | Content: Hi team,
+
+
+<Email> [2025-03-16 11:51:44] To: Dayu Wang <22dayuwang22@gmail.com> | Subject: Re: 🌟 Tom, exclusive 40% discount on your favorite outdoor gear! | Status: Reply | Content: Hey Tom,
+
+
+
+We know how much you love outdoor adventures! We're giving you an
+
+exclusive *40%
+
+OFF* your favorite camping brands this weekend only.
+
+
+
+*Your Exclusive Code:* *OUTDOOR40*
+
+*Valid Until:* Sunday, March 23, 2025, 11:59 PM EST
+
+
+
+Claim Your Offer Now <#>
+
+
+
+Gear up and save!
+
+—OutdoorHub Team
+
+
+<Email> [2025-03-16 11:53:55] To: None | Subject: 🌟 Tom, exclusive 40% discount on your favorite outdoor gear! | Status: Archived | Content: Hey Tom,
+
+
+
+We know how much you love outdoor adventures! We're giving you an
+
+exclusive *40%
+
+OFF* your favorite camping brands this weekend only.
+
+
+
+*Your Exclusive Code:* *OUTDOOR40*
+
+*Valid Until:* Sunday, March 23, 2025, 11:59 PM EST
+
+
+
+Claim Your Offer Now <#>
+
+
+
+Gear up and save!
+
+—OutdoorHub Team
+
+
+<Email> [2025-03-16 11:54:19] To: Dayu Wang <22dayuwang22@gmail.com> | Subject: Re: 🚨 Urgent: Final Paper Submission Due Tonight at 11:59 PM | Status: Draft | Content: Hello Tom,
+
+
+
+This is a reminder that your final paper for *History 202: Modern European
+
+History* must be submitted by *tonight at 11:59 PM*. No late submissions
+
+will be accepted, so please ensure it’s uploaded on the online portal
+
+before the deadline.
+
+
+
+If you're experiencing any technical issues, inform me immediately.
+
+
+
+Best,
+
+Prof. Susan Montgomery
+
+
+<Email> [2025-03-16 11:57:46] To: Dayu Wang <22dayuwang22@gmail.com> | Subject: Re: 🔥 Tom, save 20% now—limited-time offer! | Status: Reply | Content: Hi Tom,
+
+
+
+Enjoy *20% off* everything in our store this weekend only! Use code *SAVE20*
+
+at checkout.
+
+
+
+[Shop Now]
+
+
+
+Hurry, offer ends Sunday!
+
+
+
+Cheers,
+
+Team ShopEasy
+
+
+<Email> [2025-03-16 11:59:08] To: fiveguysteam0@gmail.com | Subject: Re: 🔥 Tom, save 20% now—limited-time offer! | Status: Reply | Content: Here's the reply:
+
+Dear Team ShopEasy,
+
+Thank you for the limited-time offer, but I'm not shopping at the moment. Can you let me know when I can expect similar promotions in the future?
+
+Best regards,
+Tom
+<Email> [2025-03-16 12:03:24] To: fiveguysteam0@gmail.com | Subject: Re: 🔥 Tom, save 20% now—limited-time offer! | Status: Draft | Content: Here's the reply:
+
+Dear Team ShopEasy,
+
+Thank you for the limited-time offer, but I'm not shopping at the moment. Can you let me know when I can expect similar promotions in the future?
+
+Best regards,
+Tom
+<Email> [2025-03-16 12:06:49] To: Dayu Wang <22dayuwang22@gmail.com> | Subject: Re: 🚨 Emergency Meeting Today at 3 PM | Status: Draft | Content: Tom,
+
+
+
+Emergency meeting scheduled for *today at 3 PM* in Room 101. Your
+
+attendance is required.
+
+
+
+Thanks,
+
+Jake
+
+
+<Calendar> [2025-03-16 12:07:05] 2025-03-16T15:00:00 to 2025-03-16T16:00:00 | Subject: Emergency Meeting | Status: Created | Content: Attendance is required in Room 101
+<Email> [2025-03-16 12:17:34] To: Dayu Wang <22dayuwang22@gmail.com> | Subject: Re: Lease Renewal Reminder | Status: Draft | Content: Hi Tom,
 
-Let's have our weekly team meeting next Tuesday (2025-03-19) from 14:00 to
-15:00.
-We will discuss the Q1 project progress. Location: Conference Room A
+Your apartment lease is ending soon (April 30). Please confirm if you plan
+to renew or move out, so we can plan accordingly.
 
-Best regards,
-Team Lead
+Thanks,
+Lisa
+Property Manager
 
-<Calendar> [2025-03-16 11:09:37] 2025-03-19T14:00:00 to 2025-03-19T15:00:00 | Subject: Weekly Team Meeting | Status: Created | Content: Discuss Q1 project progress
-<Email> [2025-03-16 11:11:27] To: fiveguysteam0@gmail.com | Subject: Re: Q2 Project progress meeting | Status: Draft | Content: Dear team,
+<Calendar> [2025-03-16 12:17:51] 2023-04-30T08:00:00 to 2023-04-30T17:00:00 | Subject: Lease Renewal Decision Deadline | Status: Created | Content: Confirm if you plan to renew or move out
+<Email> [2025-03-16 12:19:28] To: Dayu Wang <22dayuwang22@gmail.com> | Subject: Re: 🌟 March Newsletter: Tips, News & Updates! | Status: Reply | Content: Hello Tom,
+
+Here's your weekly update featuring:
+
+   - New articles on health & wellness
+   - Upcoming community events
+   - Special member-exclusive offers
+
+[Read More]
+
+Have a great week!
+The Wellness Club Team
 
-Thank you for your email regarding the upcoming team meeting. I'm pleased to confirm that the meeting is scheduled for next Tuesday, March 19th, from 2:00 PM to 3:00 PM in Conference Room A. We will discuss the Q1 project progress and share updates on our work.
+<Email> [2025-03-16 12:30:37] To: None | Subject: 🌟 March Newsletter: Tips, News & Updates! | Status: Archived | Content: Hello Tom,
+
+Here's your weekly update featuring:
+
+   - New articles on health & wellness
+   - Upcoming community events
+   - Special member-exclusive offers
+
+[Read More]
+
+Have a great week!
+The Wellness Club Team
 
-Please make sure to arrive at 1:45 PM to get settled before the meeting starts. I'm looking forward to seeing you all there and sharing updates on our progress.
+<Email> [2025-03-16 12:31:03] To: Dayu Wang <22dayuwang22@gmail.com> | Subject: Re: 🌟 March Newsletter: Tips, News & Updates! | Status: Reply | Content: Hello Tom,
+
+Here's your weekly update featuring:
+
+   - New articles on health & wellness
+   - Upcoming community events
+   - Special member-exclusive offers
+
+[Read More]
+
+Have a great week!
+The Wellness Club Team
+
+<Email> [2025-03-16 12:38:08] To: None | Subject: 🚨 Emergency Meeting Today at 3 PM | Status: Archived | Content: Tom,
+
+Emergency meeting scheduled for *today at 3 PM* in Room 101. Your
+attendance is required.
+
+Thanks,
+Jake
+
+<Email> [2025-03-16 12:38:32] To: fiveguysteam0@gmail.com | Subject: Re: 🌟 March Newsletter: Tips, News & Updates! | Status: Reply | Content: Subject: Re: 🌟 March Newsletter: Tips, News & Updates!
+
+Dear Team,
+
+Thank you for sending me the March Newsletter featuring new articles on health and wellness, upcoming community events, and special member-exclusive offers. I appreciate the effort you put into curating these updates, and I'm interested in learning about the new articles on health and wellness. However, I didn't find any specific information or promotions that pertain to me. Could you let me know when similar newsletters will be sent in the future so I can stay updated on the latest developments?
 
 Best regards,
-Team Lead
-<Calendar> [2025-03-16 11:11:53] 2025-03-19T14:00:00 to 2025-03-19T15:00:00 | Subject: Weekly Team Meeting | Status: Created | Content: Discuss Q1 project progress
-<Email> [2025-03-16 11:12:52] To: fiveguysteam0@gmail.com | Subject: Re: Q2 Project progress meeting | Status: Reply | Content: Dear team,
+Tom
+<Email> [2025-03-16 12:43:20] To: fiveguysteam0@gmail.com | Subject: Re: 🌟 March Newsletter: Tips, News & Updates! | Status: Reply | Content: Here's the reply:
 
-Thank you for your email regarding the upcoming team meeting. I'm pleased to confirm that the meeting is scheduled for next Tuesday at 2:00 PM in Conference Room A. We will discuss the Q1 project progress and share updates on our work.
+Dear Team,
 
-I've included the meeting details below for your reference:
-
-* Date: 2025-03-19
-* Start Time: 14:00
-* End Time: 15:00
-* Location: Conference Room A
-
-Please make sure to arrive at 1:45 PM to get settled before the meeting starts. I'm looking forward to seeing you all there and sharing updates on our progress.
+Thank you for the March Newsletter! I appreciate the effort you put into curating the updates, especially the articles on health and wellness. However, I didn't find any specific information or promotions that pertain to me. Could you let me know when similar newsletters will be sent in the future so I can stay updated on the latest developments? I would also appreciate any future newsletters that are more tailored to my interests or specific needs.
 
 Best regards,
-Team Lead
-<Calendar> [2025-03-16 11:13:19] 2025-03-19T14:00:00 to 2025-03-19T15:00:00 | Subject: Weekly Team Meeting | Status: Created | Content: Discuss Q1 project progress
-<Email> [2025-03-16 11:13:56] To: fiveguysteam0@gmail.com | Subject: Re: Q2 Project progress meeting | Status: Reply | Content: Here's the reply:
+Tom
+<Email> [2025-03-16 12:43:56] To: fiveguysteam0@gmail.com | Subject: Re: 🌟 March Newsletter: Tips, News & Updates! | Status: Draft | Content: Subject: Re: 🌟 March Newsletter: Tips, News & Updates!
 
-Dear team,
+Dear Team,
 
-Thank you for your interest in the upcoming team meeting. I'm pleased to confirm that the meeting is scheduled for next Tuesday at 2:00 PM in Conference Room A. We will discuss the Q1 project progress and share updates on our work.
-
-Please make sure to arrive at 1:45 PM to get settled before the meeting starts. I've included the meeting details below for your reference:
-
-* Date: 2025-03-19
-* Start Time: 14:00
-* End Time: 15:00
-* Location: Conference Room A
-
-I'm looking forward to seeing you all there and sharing updates on our progress.
+Thank you for the March Newsletter! I appreciate the effort you put into curating the updates, especially the articles on health and wellness. However, I didn't find any specific information or promotions that pertained to me. In the future, could you please let me know when similar newsletters will be sent so I can stay updated on the latest developments? I'm particularly interested in receiving newsletters that are tailored to my interests or specific needs.
 
 Best regards,
-Team Lead
-<Calendar> [2025-03-16 11:14:12] 2025-03-19T14:00:00 to 2025-03-19T15:00:00 | Subject: Q1 Project Progress Meeting | Status: Created | Content: Discuss Q1 project progress and share updates
+Tom

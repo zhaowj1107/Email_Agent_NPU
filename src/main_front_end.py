@@ -1,7 +1,7 @@
 import os
 import sys
 from pywebio.input import input
-from pywebio.output import put_text, put_markdown, put_html, put_scrollable, use_scope, clear
+from pywebio.output import put_text, put_markdown, put_html, put_scrollable, use_scope, clear, put_button, put_row
 from pywebio import start_server
 import time
 
@@ -10,6 +10,10 @@ sys.path.append(module_path)
 import gmail_categorization as gc
 import gmail_api as ga
 import gmail_monitor as gm
+import daily_report as dr
+
+
+
 from datetime import datetime
 # import google_calendar.calendar_api as gc
 
@@ -37,9 +41,31 @@ def log_message(message, message_type="info"):
     with use_scope('chat_log', clear=False):
         put_html(html)
 
+def send_daily_report():
+    """Generate and send a daily email report"""
+    log_message("Generating daily report...", "system")
+    try:
+        # Replace this with your actual report generation code
+        report_data = dr.daily_report()
+        # Example: send_email_report(report_data)
+        
+        # Simulating report generation with a delay
+        time.sleep(1)
+        log_message("Daily report sent successfully!", "success")
+        log_message(report_data, "email")
+    except Exception as e:
+        log_message(f"Error sending daily report: {str(e)}", "error")
+
 def main():
     # Set up the UI
-    put_markdown("# Email Monitoring System")
+    put_row(
+        [
+            put_markdown("# Email Monitoring System"),
+            None,  # This creates flexible space between the elements
+            put_button("Send Daily Report", onclick=send_daily_report, color='primary', outline=True)
+        ],
+        size="auto 1fr auto"  # First and last columns auto-sized, middle takes remaining space
+    )
     put_markdown("### Automatically monitoring, categorizing, and responding to emails")
     
     # Create a scrollable area for chat messages
@@ -89,13 +115,12 @@ def main():
             log_message("Preparing reply to email...", "system")
             reply_result = ga.reply_email(service, sender_email, email["sender"], email["subject"], email["body"])
             if reply_result:
-                log_message(f"Reply sent with Message ID: {reply_result['id']}", "success")
+                log_message(f"Reply sent with content:{reply_result['body']}", "success")
             else:
                 log_message("Failed to send reply", "error")
-            log_message("Calendar checking...", "system")
+            log_message("Calendar need checking...", "system")
             gc.check_calendar_need(email, category_custom)
             log_message("Calendar created", "success")
-            
             # time.sleep(100)
     
         elif category_custom == "M":

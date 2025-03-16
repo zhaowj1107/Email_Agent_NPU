@@ -176,7 +176,7 @@ def reply_email(service, sender, to, subject, body, thread_id=None, message_id=N
         message_id: The ID of the specific message to reply to (optional)
     
     Returns:
-        dict: The sent message details or None if an error occurred
+        dict: The sent message details including the reply body or None if an error occurred
     """
     try:
         # Add path to access ALLM_api module
@@ -194,6 +194,7 @@ def reply_email(service, sender, to, subject, body, thread_id=None, message_id=N
         You are an expert email assistant tasked with drafting professional replies.
         
         Guidelines for your response:
+        0. My name is Tom
         1. Keep the tone professional but friendly
         2. Be concise and to the point
         3. Address all questions or requests in the original email
@@ -261,6 +262,9 @@ def reply_email(service, sender, to, subject, body, thread_id=None, message_id=N
         
         print(f'Reply sent! Message ID: {sent_message["id"]}')
         log.log_email(subject, to, body, "Reply")
+        
+        # Add the reply body to the sent_message dictionary before returning
+        sent_message['body'] = reply_body
         return sent_message
     
     except ImportError as e:
@@ -302,6 +306,24 @@ def archive_emails(service, message_id=None, query=None):
         for message in messages:
             message_id = message["id"]
 
+            # Retrieve email details before archiving to use in logging
+            msg_data = service.users().messages().get(userId="me", id=message_id).execute()
+            
+            # Extract subject from headers
+            headers = msg_data["payload"]["headers"]
+            email_subject = next((h["value"] for h in headers if h["name"].lower() == "subject"), "No Subject")
+            
+            # Extract email body
+            email_body = ""
+            if "parts" in msg_data["payload"]:
+                for part in msg_data["payload"]["parts"]:
+                    if part["mimeType"] == "text/plain":
+                        if "data" in part["body"]:
+                            email_body = base64.urlsafe_b64decode(part["body"]["data"]).decode("utf-8")
+                            break
+            elif "body" in msg_data["payload"] and "data" in msg_data["payload"]["body"]:
+                email_body = base64.urlsafe_b64decode(msg_data["payload"]["body"]["data"]).decode("utf-8")
+
             # Modify the message to remove the INBOX label
             modify_request_body = {
                 "removeLabelIds": ["INBOX"]
@@ -311,7 +333,8 @@ def archive_emails(service, message_id=None, query=None):
             ).execute()
 
             print(f"Archived message with ID: {message_id}")
-            log.log_email(subject, None, body, "Archived")
+            # Use the retrieved email details for logging
+            log.log_email(email_subject, None, email_body, "Archived")
             return
 
     except HttpError as error:
@@ -345,6 +368,7 @@ def simple_draft(service, sender_email, to_email, subject, message_content):
         You are an email assistant. Generate ONLY the reply body for the following email.
         Do not include any subject lines, headers, or other formatting.
         Requirements:
+        - My name is Tom
         - Be professional and concise
         - Address the key points in the original email
         - Maintain a respectful tone
@@ -415,7 +439,7 @@ def simple_draft(service, sender_email, to_email, subject, message_content):
             from toolkit.whatsapp_sender import whatsapp_sender
             
             # Create notification message (without including draft content)
-            notification_message = f"A draft reply has been prepared for email with subject: '{message['subject']}'. The draft is ready in your Gmail account."
+            notification_message = f"A draft reply has been prepared for email with subject: '{message['subject']}'. The draft is ready in your Gmail account.\n\nDraft Content:\n{processed_content}"
             
             # Send WhatsApp message using the dedicated function
             whatsapp_sender(notification_message)

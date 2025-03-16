@@ -976,3 +976,410 @@ Team Lead
 message_id: 195a029ac0873047
 system_time: 2025-03-16 11:14:13
 
+--- New Email at 2025-03-16 11:36:01 ---
+sender: Dayu Wang <22dayuwang22@gmail.com>
+subject: 📦 Tom, your order (#A1023845) is on the way—Arriving March 18th!
+body: Hi Tom,
+
+We're pleased to let you know that your recent order (#A1023845) containing
+your *Sony WH-1000XM5 Wireless Headphones (Midnight Black)* has been
+shipped.
+
+*Shipping Details:*
+
+   - *Carrier:* UPS Ground
+   - *Tracking Number:* 1Z4958W40358763495
+   - *Expected Delivery Date:* Tuesday, March 18, 2025, by 7:00 PM
+
+You can conveniently track your package here:
+Track Your Shipment <#>
+
+Enjoy your new gear!
+– The AudioExpress Team
+
+message_id: 195a034b62113d1d
+system_time: 2025-03-16 11:36:01
+
+--- New Email at 2025-03-16 11:42:20 ---
+sender: Dayu Wang <22dayuwang22@gmail.com>
+subject: 📦 Tom, your order (#A1023845) is on the way—Arriving March 18th!
+body: Hi Tom,
+
+We're pleased to let you know that your recent order (#A1023845) containing
+your *Sony WH-1000XM5 Wireless Headphones (Midnight Black)* has been
+shipped.
+
+*Shipping Details:*
+
+   - *Carrier:* UPS Ground
+   - *Tracking Number:* 1Z4958W40358763495
+   - *Expected Delivery Date:* Tuesday, March 18, 2025, by 7:00 PM
+
+You can conveniently track your package here:
+Track Your Shipment <#>
+
+Enjoy your new gear!
+– The AudioExpress Team
+
+message_id: 195a034b62113d1d
+system_time: 2025-03-16 11:42:20
+
+--- New Email at 2025-03-16 11:45:27 ---
+sender: fiveguysteam0@gmail.com
+subject: Re: 📦 Tom, your order (#A1023845) is on the way—Arriving March 18th!
+body: Subject: Order Update: A1023845
+
+Dear Audioexpress Team,
+
+Thank you for the update on my order, A1023845. I appreciate the notification that my Sony WH-1000XM5 Wireless Headphones (Midnight Black) have been shipped and are expected to arrive on March 18th, 2025. I'm looking forward to receiving my new gear and will be keeping an eye on the tracking number (1Z4958W40358763495) for updates on the delivery status.
+
+Thank you for the excellent service, and I'm excited to start using my new headphones soon!
+
+Best regards,
+Tom
+message_id: 195a0440601d8d29
+system_time: 2025-03-16 11:45:27
+
+--- New Email at 2025-03-16 11:49:31 ---
+sender: fiveguysteam0@gmail.com
+subject: Re: 📦 Tom, your order (#A1023845) is on the way—Arriving March 18th!
+body: Dear Tom,
+
+Thank you for your email regarding the update on your order A1023845. We're glad you're excited about your new Sony WH-1000XM5 Wireless Headphones (Midnight Black)!
+
+Your order has indeed been shipped, and the tracking number 1Z4958W40358734 is active. You can expect to receive your package on March 18th, 2025. We'll keep you updated on the delivery status, and you'll receive an email as soon as your package is delivered.
+
+Please don't hesitate to reach out to us if you have any further questions or concerns. We're always here to help.
+
+Best regards,
+The Audioexpress Team
+message_id: 195a046e917e2d06
+system_time: 2025-03-16 11:49:31
+
+--- New Email at 2025-03-16 11:50:41 ---
+sender: fiveguysteam0@gmail.com
+subject: Re: 📦 Tom, your order (#A1023845) is on the way—Arriving March 18th!
+body: Dear Tom,
+
+Thank you for your email regarding the update on your order A1023845. We're glad you're excited about your new Sony WH-1000XM5 Wireless Headphones (Midnight Black)!
+
+Your order has indeed been shipped, and the tracking number 1Z4958W40358734 is active. You can expect to receive your package on March 18th, 2025. We'll keep you updated on the delivery status, and you'll receive an email as soon as your package is delivered.
+
+Please don't hesitate to reach out to us if you have any further questions or concerns. We're always here to help.
+
+Best regards,
+The Audioexpress Team
+message_id: 195a046e917e2d06
+system_time: 2025-03-16 11:50:41
+
+--- New Email at 2025-03-16 11:51:27 ---
+sender: Dayu Wang <22dayuwang22@gmail.com>
+subject: 🌟 Tom, exclusive 40% discount on your favorite outdoor gear!
+body: Hey Tom,
+
+We know how much you love outdoor adventures! We're giving you an
+exclusive *40%
+OFF* your favorite camping brands this weekend only.
+
+*Your Exclusive Code:* *OUTDOOR40*
+*Valid Until:* Sunday, March 23, 2025, 11:59 PM EST
+
+Claim Your Offer Now <#>
+
+Gear up and save!
+—OutdoorHub Team
+
+message_id: 195a04bacdfad2e4
+system_time: 2025-03-16 11:51:27
+
+--- New Email at 2025-03-16 11:53:50 ---
+sender: Dayu Wang <22dayuwang22@gmail.com>
+subject: 🚨 Urgent: Final Paper Submission Due Tonight at 11:59 PM
+body: Hello Tom,
+
+This is a reminder that your final paper for *History 202: Modern European
+History* must be submitted by *tonight at 11:59 PM*. No late submissions
+will be accepted, so please ensure it’s uploaded on the online portal
+before the deadline.
+
+If you're experiencing any technical issues, inform me immediately.
+
+Best,
+Prof. Susan Montgomery
+
+message_id: 195a04d96410ffa2
+system_time: 2025-03-16 11:53:50
+
+--- New Email at 2025-03-16 11:53:56 ---
+sender: Dayu Wang <22dayuwang22@gmail.com>
+subject: 🚨 Urgent: Final Paper Submission Due Tonight at 11:59 PM
+body: Hello Tom,
+
+This is a reminder that your final paper for *History 202: Modern European
+History* must be submitted by *tonight at 11:59 PM*. No late submissions
+will be accepted, so please ensure it’s uploaded on the online portal
+before the deadline.
+
+If you're experiencing any technical issues, inform me immediately.
+
+Best,
+Prof. Susan Montgomery
+
+message_id: 195a04d96410ffa2
+system_time: 2025-03-16 11:53:56
+
+--- New Email at 2025-03-16 11:57:35 ---
+sender: Dayu Wang <22dayuwang22@gmail.com>
+subject: 🔥 Tom, save 20% now—limited-time offer!
+body: Hi Tom,
+
+Enjoy *20% off* everything in our store this weekend only! Use code *SAVE20*
+at checkout.
+
+[Shop Now]
+
+Hurry, offer ends Sunday!
+
+Cheers,
+Team ShopEasy
+
+message_id: 195a0501cc25804b
+system_time: 2025-03-16 11:57:35
+
+--- New Email at 2025-03-16 11:58:50 ---
+sender: fiveguysteam0@gmail.com
+subject: Re: 🔥 Tom, save 20% now—limited-time offer!
+body: Here's the reply:
+
+Dear Team ShopEasy,
+
+Thank you for the limited-time offer, but I'm not shopping at the moment. Can you let me know when I can expect similar promotions in the future?
+
+Best regards,
+Tom
+message_id: 195a051d1e4a0593
+system_time: 2025-03-16 11:58:50
+
+--- New Email at 2025-03-16 11:59:27 ---
+sender: fiveguysteam0@gmail.com
+subject: Re: 🔥 Tom, save 20% now—limited-time offer!
+body: Here's the reply:
+
+Dear Team ShopEasy,
+
+Thank you for the exciting limited-time offer! I appreciate the value you're offering, and I'm sure many of our team members will be interested in taking advantage of the 20% discount.
+
+I'm not shopping right now, but I'll definitely keep your offer in mind for future purchases. If you have any similar promotions planned, could you please keep me informed? I'd love to stay up to date on any future deals.
+
+Best regards,
+Tom
+message_id: 195a053111ee43a0
+system_time: 2025-03-16 11:59:27
+
+--- New Email at 2025-03-16 12:02:59 ---
+sender: fiveguysteam0@gmail.com
+subject: Re: 🔥 Tom, save 20% now—limited-time offer!
+body: Here's the reply:
+
+Dear Team ShopEasy,
+
+Thank you for the limited-time offer, but I'm not shopping at the moment. Can you let me know when I can expect similar promotions in the future?
+
+Best regards,
+Tom
+message_id: 195a051d1e4a0593
+system_time: 2025-03-16 12:02:59
+
+--- New Email at 2025-03-16 12:03:33 ---
+sender: fiveguysteam0@gmail.com
+subject: Re: 🔥 Tom, save 20% now—limited-time offer!
+body: Dear Team,
+
+Thank you for the update on my order, A1023845. I appreciate the notification that my Sony WH-1000XM5 Wireless Headphones (Midnight Black) have been shipped and are expected to arrive on March 18th, 2025. I'm looking forward to receiving my new gear and will be keeping an eye on the tracking number (1Z4958W40358763495) for updates on the delivery status. I'm excited to start using my new headphones soon!
+
+Best regards,
+Tom
+message_id: 195a056f63b5225d
+system_time: 2025-03-16 12:03:33
+
+--- New Email at 2025-03-16 12:04:25 ---
+sender: fiveguysteam0@gmail.com
+subject: Re: 🔥 Tom, save 20% now—limited-time offer!
+body: Dear Team,
+
+Thank you for the update on my order, A1023845. I appreciate the notification that my Sony WH-1000XM5 Wireless Headphones (Midnight Black) have been shipped and are expected to arrive on March 18th, 2025. I'm looking forward to receiving my new gear and will be keeping an eye on the tracking number (1Z4958W40358763495) for updates on the delivery status. I'm excited to start using my new headphones soon!
+
+Best regards,
+Tom
+message_id: 195a056f63b5225d
+system_time: 2025-03-16 12:04:25
+
+--- New Email at 2025-03-16 12:04:50 ---
+sender: fiveguysteam0@gmail.com
+subject: Re: 🔥 Tom, save 20% now—limited-time offer!
+body: Dear Team,
+
+Thank you for the update on my order, A1023845. I appreciate the notification that my Sony WH-1000XM5 Wireless Headphones (Midnight Black) have been shipped and are expected to arrive on March 18th, 2025. I'm looking forward to receiving my new gear and will be keeping an eye on the tracking number (1Z4958W40358763495) for updates on the delivery status. I'm excited to start using my new headphones soon!
+
+Best regards,
+Tom
+message_id: 195a056f63b5225d
+system_time: 2025-03-16 12:04:50
+
+--- New Email at 2025-03-16 12:06:28 ---
+sender: Dayu Wang <22dayuwang22@gmail.com>
+subject: 🚨 Emergency Meeting Today at 3 PM
+body: Tom,
+
+Emergency meeting scheduled for *today at 3 PM* in Room 101. Your
+attendance is required.
+
+Thanks,
+Jake
+
+message_id: 195a056e0aec6f6b
+system_time: 2025-03-16 12:06:28
+
+--- New Email at 2025-03-16 12:08:16 ---
+sender: Dayu Wang <22dayuwang22@gmail.com>
+subject: Lease Renewal Reminder
+body: Hi Tom,
+
+Your apartment lease is ending soon (April 30). Please confirm if you plan
+to renew or move out, so we can plan accordingly.
+
+Thanks,
+Lisa
+Property Manager
+
+message_id: 195a05b47b362b58
+system_time: 2025-03-16 12:08:16
+
+--- New Email at 2025-03-16 12:17:15 ---
+sender: Dayu Wang <22dayuwang22@gmail.com>
+subject: Lease Renewal Reminder
+body: Hi Tom,
+
+Your apartment lease is ending soon (April 30). Please confirm if you plan
+to renew or move out, so we can plan accordingly.
+
+Thanks,
+Lisa
+Property Manager
+
+message_id: 195a05b47b362b58
+system_time: 2025-03-16 12:17:15
+
+--- New Email at 2025-03-16 12:19:03 ---
+sender: Dayu Wang <22dayuwang22@gmail.com>
+subject: 🌟 March Newsletter: Tips, News & Updates!
+body: Hello Tom,
+
+Here's your weekly update featuring:
+
+   - New articles on health & wellness
+   - Upcoming community events
+   - Special member-exclusive offers
+
+[Read More]
+
+Have a great week!
+The Wellness Club Team
+
+message_id: 195a06521adebec0
+system_time: 2025-03-16 12:19:03
+
+--- New Email at 2025-03-16 12:30:32 ---
+sender: Dayu Wang <22dayuwang22@gmail.com>
+subject: 🌟 March Newsletter: Tips, News & Updates!
+body: Hello Tom,
+
+Here's your weekly update featuring:
+
+   - New articles on health & wellness
+   - Upcoming community events
+   - Special member-exclusive offers
+
+[Read More]
+
+Have a great week!
+The Wellness Club Team
+
+message_id: 195a06521adebec0
+system_time: 2025-03-16 12:30:32
+
+--- New Email at 2025-03-16 12:30:38 ---
+sender: Dayu Wang <22dayuwang22@gmail.com>
+subject: 🌟 March Newsletter: Tips, News & Updates!
+body: Hello Tom,
+
+Here's your weekly update featuring:
+
+   - New articles on health & wellness
+   - Upcoming community events
+   - Special member-exclusive offers
+
+[Read More]
+
+Have a great week!
+The Wellness Club Team
+
+message_id: 195a06521adebec0
+system_time: 2025-03-16 12:30:38
+
+--- New Email at 2025-03-16 12:38:02 ---
+sender: fiveguysteam0@gmail.com
+subject: Re: 🌟 March Newsletter: Tips, News & Updates!
+body: Subject: Re: 🌟 March Newsletter: Tips, News & Updates!
+
+Dear Team,
+
+Thank you for sending me the March Newsletter featuring new articles on health and wellness, upcoming community events, and special member-exclusive offers. I appreciate the effort you put into curating these updates, and I'm interested in learning about the new articles on health and wellness. However, I didn't find any specific information or promotions that pertain to me. Could you let me know when similar newsletters will be sent in the future so I can stay updated on the latest developments?
+
+Best regards,
+Tom
+message_id: 195a0704a55c6043
+system_time: 2025-03-16 12:38:02
+
+--- New Email at 2025-03-16 12:38:09 ---
+sender: fiveguysteam0@gmail.com
+subject: Re: 🌟 March Newsletter: Tips, News & Updates!
+body: Subject: Re: 🌟 March Newsletter: Tips, News & Updates!
+
+Dear Team,
+
+Thank you for sending me the March Newsletter featuring new articles on health and wellness, upcoming community events, and special member-exclusive offers. I appreciate the effort you put into curating these updates, and I'm interested in learning about the new articles on health and wellness. However, I didn't find any specific information or promotions that pertain to me. Could you let me know when similar newsletters will be sent in the future so I can stay updated on the latest developments?
+
+Best regards,
+Tom
+message_id: 195a0704a55c6043
+system_time: 2025-03-16 12:38:09
+
+--- New Email at 2025-03-16 12:42:56 ---
+sender: fiveguysteam0@gmail.com
+subject: Re: 🌟 March Newsletter: Tips, News & Updates!
+body: Here's the reply:
+
+Dear Team,
+
+Thank you for the March Newsletter! I appreciate the effort you put into curating the updates, especially the articles on health and wellness. However, I didn't find any specific information or promotions that pertain to me. Could you let me know when similar newsletters will be sent in the future so I can stay updated on the latest developments? I would also appreciate any future newsletters that are more tailored to my interests or specific needs.
+
+Best regards,
+Tom
+message_id: 195a077230cc29bb
+system_time: 2025-03-16 12:42:56
+
+--- New Email at 2025-03-16 12:43:32 ---
+sender: fiveguysteam0@gmail.com
+subject: Re: 🌟 March Newsletter: Tips, News & Updates!
+body: Subject: Re: 🌟 March Newsletter: Tips, News & Updates!
+
+Dear Team,
+
+Thank you for the March Newsletter! I appreciate the effort you put into curating the updates, especially the articles on health and wellness. However, I didn't find any specific information or promotions that pertained to me. In the future, could you please let me know when similar newsletters will be sent so I can stay updated on the latest developments? I'm particularly interested in receiving newsletters that are tailored to my interests or specific needs.
+
+Best regards,
+Tom
+message_id: 195a07b86ad3688d
+system_time: 2025-03-16 12:43:32
+
