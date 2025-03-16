@@ -1,84 +1,87 @@
-# Email_Agent with NPU
+# Email Agent with NPU
 
+## 📌 Brief Introduction
 
-# Implementation
-This app was built for the Snapdragon X Elite but designed to be platform agnostic. Performance may vary on other hardware.
+**Features:**
+- 📬 **24/7 Email Monitoring**
+- 📊 **Email Analysis & Categorization:**
+  - **A (Archive - Low Priority):** Automatically archive.
+  - **B (Reply - Medium Priority):** Auto-reply using LLM.
+  - **M (Meeting/Important - High Priority):** Draft an email & send a WhatsApp notification.
 
-## Hardware
+**Platform:**
+- Built for **Snapdragon X Elite**, designed to be **platform-agnostic** (performance may vary).
 
-Machine: Dell Latitude 7455
-Chip: Snadragon X Elite
-OS: Windows 11
-Memory: 32 GB
+---
 
-## Software
+## 🖥️ Hardware
 
-Python Version: 3.12.6
-AnythingLLM LLM Provider: Qualcomm QNN
-AnythingLLM Chat Model: Llama 3.1 8B Chat 8K
-Setup
-Install and setup AnythingLLM.
-Choose Qualcomm QNN when prompted to choose an LLM provider to target the NPU
-Choose a model of your choice when prompted. This sample uses Llama 3.1 8B Chat with 8K context
-Create a workspace by clicking "+ New Workspace"
-Generate an API key
-Click the settings button on the bottom of the left panel
-Open the "Tools" dropdown
-Click "Developer API"
-Click "Generate New API Key"
+| Component | Specification |
+|-----------|--------------|
+| **Machine** | Dell Latitude 7455 |
+| **Chip** | Snapdragon X Elite |
+| **OS** | Windows 11 |
+| **Memory** | 32 GB |
 
-# Google Cloud Services Integration
+---
 
-This project integrates with **Google Calendar API** and **Gmail API** using **OAuth 2.0 authentication**. It allows you to access and interact with Google Calendar and Gmail data.
+## 🛠️ Software
 
-## Prerequisites
+| Component | Specification |
+|-----------|--------------|
+| **Python Version** | 3.12.6 |
+| **LLM Provider** | Qualcomm QNN (via AnythingLLM) |
+| **LLM Model** | Llama 3.1 8B Chat (8K Context) |
 
-Before using Gmail and Google Calendar, you need to set up Google Cloud Services.
+### 🔧 Setup Instructions
+1. Install and setup **AnythingLLM**.
+2. Choose **Qualcomm QNN** as the LLM provider.
+3. Select **Llama 3.1 8B Chat (8K Context)** as the model.
+4. Create a workspace by clicking **"+ New Workspace"**.
+5. Generate an API key:
+   - Click **Settings** (bottom left panel).
+   - Open **"Tools" > "Developer API"**.
+   - Click **"Generate New API Key"**.
 
-### 1. Create a Google Cloud Project
+---
+
+## ☁️ Google Cloud Services Integration
+
+This project integrates **Google Calendar API** & **Gmail API** using **OAuth 2.0 authentication**.
+
+### ✅ Prerequisites
+
+#### 1️⃣ Create a Google Cloud Project
 - Go to the [Google Cloud Console](https://console.cloud.google.com/).
 - Log in with your Google account.
-- Create a new project.
-- In the left navigation pane, select **API & Services > Library**.
-- Search for and enable the **Google Calendar API**.
+- Create a **new project**.
+- Navigate to **API & Services > Library**.
+- Enable **Google Calendar API** & **Gmail API**.
 
-### 2. Set Up OAuth 2.0 Authentication
-- In the Google Cloud Console, go to **API & Services > Credentials**.
-- Click on **Create Credentials** and select **OAuth 2.0 Client ID**.
-- Configure your application details and select the correct OAuth consent screen.
-- Set up the redirect URI (this can be your local callback URL or production environment URL).
-- Generate and download the credentials file (`credentials.json`).
+#### 2️⃣ Set Up OAuth 2.0 Authentication
+- Go to **API & Services > Credentials**.
+- Click **"Create Credentials" > "OAuth 2.0 Client ID"**.
+- Configure application details & OAuth consent screen.
+- Set up the redirect URI (local or production environment).
+- Generate & download the **`credentials.json`** file.
 
-### Important Notes
-- Be aware that there might be a conflict between the credentials files for Google Calendar API and Gmail API. To avoid conflicts, we use different filenames for the token files:
-  - `token_calendar.pickle` for Google Calendar.
-  - `token_gmail.pickle` for Gmail.
-- Make sure to check the paths of the two pickle files. They may exist in the root directory rather than the project directory.
+### ⚠️ Important Notes
+- Avoid credential conflicts by using separate token files:
+  - `token_calendar.pickle` → **Google Calendar**.
+  - `token_gmail.pickle` → **Gmail**.
+- Ensure correct token file paths (they may exist in the root directory).
 
-## Project Setup
+---
 
-### 1. Install Dependencies
-Make sure you have Python 3.x installed and then install the required dependencies:
+## 📦 Project Setup
+
+### 1️⃣ Install Dependencies
+Ensure Python 3.x is installed, then run:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Chinese
-----------------
-在使用Gmail和Google Calendar前，需要使用Google Cloud Service
-1. 创建一个 Google Cloud 项目
-转到 Google Cloud Console，然后登录您的 Google 帐号。
-创建一个新项目。
-在左侧导航栏选择 API 和服务 > 库。
-搜索并启用 Google Calendar API。
+---
 
-2. 设置 OAuth 2.0 认证
-在 Google Cloud Console 中，进入 API 和服务 > 凭据。
-点击 创建凭据，选择 OAuth 2.0 客户端 ID。
-配置您的应用信息并选择正确的 OAuth 同意屏幕。
-设置重定向 URI（可以是本地回调地址或生产环境的 URL）。
-生成并下载 凭据文件（credentials.json）。
-
-注意事项：请注意google Calendar API和gmail API的凭证存储文件(token.pickle)会存在冲突，在我们的项目中我们分别命名为token_calendar.pickle和token_gmail.pickle
-同时请注意两个pickle文件的路径，两个文件可能存在于根目录而不是项目目录中。
+This document provides a structured and easy-to-follow guide for setting up and running the Email Agent with NPU support.
