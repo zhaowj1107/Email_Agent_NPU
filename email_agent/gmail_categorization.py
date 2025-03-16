@@ -10,7 +10,7 @@ def categorize_email(email_data, custom_prompt=None):
     M: Push a notification message
     
     Args:
-        email_data: Dictionary containing email details (sender, subject, body)
+        email_data: Get email data from read_emails() ingmail_api.py 
         custom_prompt: Optional custom prompt to use for categorization
     
     Returns:

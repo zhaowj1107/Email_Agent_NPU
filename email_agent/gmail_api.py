@@ -67,10 +67,12 @@ def read_emails(service, max_results=1):
     elif "body" in msg_data["payload"] and "data" in msg_data["payload"]["body"]:
         body = base64.urlsafe_b64decode(msg_data["payload"]["body"]["data"]).decode("utf-8")
     
+    # Add message_id to the returned data for use in archiving
     email_info = {
         "sender": sender,
         "subject": subject,
-        "body": body
+        "body": body,
+        "message_id": msg["id"]
     }
     
     print("Latest email retrieved successfully")
