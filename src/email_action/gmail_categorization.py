@@ -215,9 +215,59 @@ def process_email(email_data, categorization_prompt=None, calendar_prompt=None):
     return result
 
 if __name__ == "__main__":
-    # Test the categorization function
-    email_data = {
-        "sender": "test@example.com",
-        "subject": "Test Email",
-        "body": "This is a test email."
+    # Test the categorize_email function
+    print("Testing categorize_email function...")
+    
+    # Sample email data for testing
+    test_email = {
+        'sender': 'test@example.com',
+        'subject': 'Important Meeting Request',
+        'body': '''
+        Hello Team,
+        
+        I'd like to schedule a meeting to discuss our Q2 targets and strategy.
+        Could we meet next Tuesday at 2pm?
+        
+        Please let me know if this works for everyone.
+        
+        Best regards,
+        John Doe
+        '''
+    }
+    
+    # Test with default prompt
+    category = categorize_email(test_email)
+    print(f"Category with default prompt: {category}")
+    
+    # Test with custom prompt
+    custom_prompt = """
+    Analyze this email and categorize it:
+    A: Archive (low priority)
+    B: Reply (medium priority)
+    D: Draft (needs thoughtful response)
+    M: Meeting/Important (high priority)
+    
+    Return only a single letter.
+    """
+    
+    category_custom = categorize_email(test_email, custom_prompt)
+    print(f"Category with custom prompt: {category_custom}")
+    
+    # Test with different email content
+    test_email2 = {
+        'sender': 'newsletter@example.com',
+        'subject': 'Weekly Newsletter: Industry Updates',
+        'body': '''
+        This week in tech:
+        - New product launches
+        - Industry trends
+        - Upcoming webinars
+        
+        Click here to read more.
+        '''
+    }
+    
+    category2 = categorize_email(test_email2)
+    print(f"Category for newsletter email: {category2}")
+
 
