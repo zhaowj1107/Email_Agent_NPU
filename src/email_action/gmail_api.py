@@ -85,7 +85,7 @@ def read_emails(service, max_results=1):
     return email_info
 
 def create_email(sender, to, subject, body):
-    """ 创建邮件（MIME 格式） """
+    """ 创建邮件(MIME 格式) """
     message = MIMEText(body)
     message["to"] = to
     message["from"] = sender
@@ -210,7 +210,11 @@ def simple_draft(service, sender_email, to_email, subject, message_content):
         The created draft object
     """
     try:
-        from local_model.ALLM_api import Chatbot
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
+        sys.path.append(parent_dir)
+
+        from ALLM_api import Chatbot
         
         # Define the prompt in English
         system_msg = """
@@ -273,7 +277,11 @@ def draft_rag(service, sender_email, to_email, subject, message_content):
         The created draft object
     """
     try:
-        from local_model.ALLM_api import Chatbot
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
+        sys.path.append(parent_dir)
+        
+        from ALLM_api import Chatbot
         
         # Step 1: Use LLM to extract keywords
         keyword_extraction_system_msg = """

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/email_agent/gmail_api.py
 import os
 import sys
 import base64
@@ -206,6 +207,8 @@ def simple_draft(service, sender_email, to_email, subject, message_content):
         return None
 
 
+=======
+>>>>>>> cfd45ae4e16e4ec25c34c34e278b51834fdf2922:email_agent/gmail_api.py
 def draft_rag(service, sender_email, to_email, subject, message_content):
     """
     根据邮件内容生成一组关键词如[school, deadline, client]
@@ -223,7 +226,11 @@ def draft_rag(service, sender_email, to_email, subject, message_content):
         The created draft object
     """
     try:
+<<<<<<< HEAD:src/email_agent/gmail_api.py
         from local_model.ds_api import deepseek
+=======
+        from local_model.ALLM_api import Chatbot
+>>>>>>> cfd45ae4e16e4ec25c34c34e278b51834fdf2922:email_agent/gmail_api.py
         
         # 步骤1: 使用LLM提取关键词
         keyword_extraction_prompt = """
@@ -232,8 +239,14 @@ def draft_rag(service, sender_email, to_email, subject, message_content):
         只返回关键词列表，不要有其他内容。
         """
         
+<<<<<<< HEAD:src/email_agent/gmail_api.py
         # 调用LLM提取关键词
         keywords_text = deepseek(message_content + "\n\n" + keyword_extraction_prompt)
+=======
+        # 创建Chatbot实例并调用提取关键词
+        keyword_chatbot = Chatbot()
+        keywords_text = keyword_chatbot.chat(message_content, keyword_extraction_prompt)
+>>>>>>> cfd45ae4e16e4ec25c34c34e278b51834fdf2922:email_agent/gmail_api.py
         
         # 处理关键词文本，转换为列表
         keywords = [keyword.strip() for keyword in keywords_text.split(',')]
@@ -260,7 +273,11 @@ def draft_rag(service, sender_email, to_email, subject, message_content):
         
         # 步骤3: 赋值prompt变量
         prompt = f"""
+<<<<<<< HEAD:src/email_agent/gmail_api.py
         请根据以下信息生成1封专业的邮件回复草稿:
+=======
+        请根据以下信息生成一封专业的邮件回复草稿:
+>>>>>>> cfd45ae4e16e4ec25c34c34e278b51834fdf2922:email_agent/gmail_api.py
         
         原始邮件主题: {subject}
         
@@ -275,7 +292,12 @@ def draft_rag(service, sender_email, to_email, subject, message_content):
         """
         
         # 步骤4: 调用LLM生成邮件草稿
+<<<<<<< HEAD:src/email_agent/gmail_api.py
         draft_content = deepseek(message_content + "\n\n" + prompt)
+=======
+        draft_chatbot = Chatbot()
+        draft_content = draft_chatbot.chat(message_content, prompt)
+>>>>>>> cfd45ae4e16e4ec25c34c34e278b51834fdf2922:email_agent/gmail_api.py
         
         # 创建MIME消息
         message = MIMEText(draft_content)
@@ -300,12 +322,17 @@ def draft_rag(service, sender_email, to_email, subject, message_content):
         return created_draft
     
     except ImportError:
+<<<<<<< HEAD:src/email_agent/gmail_api.py
         print("Error: Could not import deepseek from local_model.ds_api")
+=======
+        print("Error: Could not import Chatbot from local_model.ALLM_api")
+>>>>>>> cfd45ae4e16e4ec25c34c34e278b51834fdf2922:email_agent/gmail_api.py
         return None
     except HttpError as error:
         print(f"An error occurred: {error}")
         return None
 
+<<<<<<< HEAD:src/email_agent/gmail_api.py
 
 if __name__ == "__main__":
     service = authenticate_gmail()
@@ -322,3 +349,60 @@ if __name__ == "__main__":
     body = "Hello! This is a test email sent using Gmail API and Python."
 
     send_email(service, sender_email, receiver_email, subject, body)
+=======
+def simple_draft(service, sender_email, to_email, subject, message_content):
+    """
+    Generate a simple draft WITHOUT calling RAG
+    
+    Args:
+        service: The Gmail API service object
+        sender_email: The sender's email address
+        to_email: The recipient's email address
+        subject: Email subject line
+        message_content: Original content to be processed by LLM
+    
+    Returns:
+        The created draft object
+    """
+    try:
+        from local_model.ALLM_api import Chatbot
+        
+        # Define the prompt directly within the function
+        # This prompt can be easily edited as needed
+        prompt = """
+        这是我从邮件里面提取出来的body内容，请返回一份纯净版可读的文本格式。返回内容控制在500个字以内
+        """
+        
+        # Process the content using ALLM_api with the defined prompt
+        chatbot = Chatbot()
+        processed_content = chatbot.chat(message_content, prompt)
+        
+        # Create a MIMEText message
+        message = MIMEText(processed_content)
+        message["to"] = to_email
+        message["from"] = sender_email
+        message["subject"] = subject
+        
+        # Encode the message to base64url format
+        encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
+        
+        # Create the draft message
+        draft = {
+            'message': {
+                'raw': encoded_message
+            }
+        }
+        
+        # Call the Gmail API to create the draft
+        created_draft = service.users().drafts().create(userId="me", body=draft).execute()
+        
+        print(f"Draft created successfully with ID: {created_draft['id']}")
+        return created_draft
+    
+    except ImportError:
+        print("Error: Could not import Chatbot from local_model.ALLM_api")
+        return None
+    except HttpError as error:
+        print(f"An error occurred: {error}")
+        return None 
+>>>>>>> cfd45ae4e16e4ec25c34c34e278b51834fdf2922:email_agent/gmail_api.py

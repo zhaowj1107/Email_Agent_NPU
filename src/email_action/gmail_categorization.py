@@ -1,3 +1,4 @@
+
 import os
 import sys
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -221,17 +222,25 @@ def process_email(email_data, categorization_prompt=None, calendar_prompt=None):
     return result
 
 if __name__ == "__main__":
-    # Test the categorization function
+    # Test the categorize_email function
+    print("Testing categorize_email function...")
+    
+    # Sample email data for testing
     test_email = {
-        "sender": "test@example.com",
-        "subject": "Project Update Request",
-        "body": """
-        Hi team, I hope this email finds you well. Could you please provide an update
-        on the current status of the ML project? We need to know the timeline for
-        the next deliverable. Thanks!
-        """
+        'sender': 'test@example.com',
+        'subject': 'Important Meeting Request',
+        'body': '''
+        Hello Team,
+        
+        I'd like to schedule a meeting to discuss our Q2 targets and strategy.
+        Could we meet next Tuesday at 2pm?
+        
+        Please let me know if this works for everyone.
+        
+        Best regards,
+        John Doe
+        '''
     }
-
     
     # Test with default prompt
     category = categorize_email(test_email)
