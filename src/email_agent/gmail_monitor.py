@@ -63,8 +63,8 @@ def monitor_email(last_email_id = None):
                     
                     # 使用read_emails获取详细信息
                     email_details = ga.read_emails(service)
-                    print(email_details)
-                    
+                    # print(email_details)
+
                     # 添加系统时间
                     email_details['system_time'] = time.strftime('%Y-%m-%d %H:%M:%S')
                     
@@ -80,7 +80,7 @@ def monitor_email(last_email_id = None):
                     
                 # 更新最新邮件ID
                 last_email_id = newest_email_id
-                return email_data, last_email_id
+                return email_details, last_email_id
             else:
                 print("No new emails since last check.")
         

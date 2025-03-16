@@ -65,7 +65,7 @@ class Chatbot:
             "history": short_term_memory
         }
 
-        print(data)
+        # print(data)
 
         chat_response = requests.post(
             self.chat_url,
