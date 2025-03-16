@@ -59,6 +59,7 @@ def categorize_email(email_data, custom_prompt=None):
         # Default to 'A' (archive) on error
         return 'A'
 
+
 def check_calendar_need(email_result, custom_prompt=None):
     """
     Determine if the email should be added to the calendar based on the previous action.
