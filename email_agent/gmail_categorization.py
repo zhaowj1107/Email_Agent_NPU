@@ -1,4 +1,4 @@
-from local_model.ds_api import deepseek
+from local_model.ALLM_api import Chatbot
 from google_calendar.calendar_api import authenticate_calendar, add_calendar_event
 
 def categorize_email(email_data, custom_prompt=None):
@@ -18,13 +18,13 @@ def categorize_email(email_data, custom_prompt=None):
     """
     # Default prompt for categorization
     default_prompt = """
-    请分析以下邮件内容并将其分类为以下四种类型之一:
-    A: 需要归档的低优先级邮件
-    B: 需要直接回复的邮件
-    D: 需要生成回复草稿的邮件
-    M: 需要发送通知提醒的重要邮件
+    Analyze the following email content and categorize it into one of the four types:
+    A: Low priority email that should be archived
+    B: Email that requires a direct reply
+    D: Email that needs a draft reply
+    M: Important email that requires notification
     
-    请仅返回一个字母 (A、B、D 或 M)，不要有其他内容。
+    Return only a single letter (A, B, D, or M) without any other content.
     """
     
     # Use custom prompt if provided, otherwise use default
@@ -36,10 +36,11 @@ def categorize_email(email_data, custom_prompt=None):
     body = email_data.get("body", "")
     
     # Create the input for the LLM
-    llm_input = f"发件人: {sender}\n主题: {subject}\n\n{body}\n\n{prompt}"
+    llm_input = f"From: {sender}\nSubject: {subject}\n\n{body}"
     
-    # Call the LLM to categorize the email
-    category = deepseek(llm_input).strip().upper()
+    # Call the LLM to categorize the email using Chatbot
+    chatbot = Chatbot()
+    category = chatbot.chat(llm_input, prompt).strip().upper()
     
     # Validate the category
     if category not in ["A", "B", "D", "M"]:
@@ -76,11 +77,13 @@ def categorize_email(email_data, custom_prompt=None):
     elif category == "B":
         # Generate reply content
         reply_prompt = """
-        请生成一个简短、专业的回复，直接回应这封邮件的内容。
-        回复应该简洁明了，不超过100字。
+        Generate a short, professional reply directly responding to this email.
+        The reply should be concise and not exceed 100 words.
         """
-        reply_input = f"发件人: {sender}\n主题: {subject}\n\n{body}\n\n{reply_prompt}"
-        reply_content = deepseek(reply_input)
+        
+        # Create a new Chatbot for reply generation
+        reply_chatbot = Chatbot()
+        reply_content = reply_chatbot.chat(f"From: {sender}\nSubject: {subject}\n\n{body}", reply_prompt)
         
         # Send the reply
         send_email(gmail_service, "me", sender, f"Re: {subject}", reply_content)
@@ -89,15 +92,14 @@ def categorize_email(email_data, custom_prompt=None):
     
     elif category == "D":
         # Create a draft reply
-        # You could use either simple_draft or draft_rag
+        # Use simple_draft (now updated to use Chatbot)
         draft = simple_draft(gmail_service, "me", sender, f"Re: {subject}", body)
         if draft:
             result["action_taken"] = "Draft reply created"
             result["draft_id"] = draft["id"]
     
     elif category == "M":
-        # Here you would integrate with a notification service
-        # For now, we'll just create a draft and note it needs attention
+        # Create a draft and mark as important (now updated to use Chatbot)
         draft = draft_rag(gmail_service, "me", sender, f"IMPORTANT: {subject}", body)
         result["action_taken"] = "Draft created and marked as important"
         if draft:
@@ -118,25 +120,24 @@ def check_calendar_need(email_result, custom_prompt=None):
     """
     # Default prompt for calendar determination
     default_prompt = """
-    请分析以下邮件内容，判断是否需要将其添加到日历中:
-    - 如果邮件中包含明确的日期、时间和事件信息，回答 "YES"
-    - 如果邮件已经被拒绝回复，回答 "NO"
-    - 如果邮件中没有包含日期和时间信息，回答 "NO"
-    - 如果无法确定，回答 "NO"
+    Analyze the following email content and determine if it should be added to the calendar:
+    - If the email contains clear date, time, and event information, answer "YES"
+    - If the email has been replied to with a rejection, answer "NO"
+    - If the email does not contain date and time information, answer "NO"
+    - If uncertain, answer "NO"
     
-    请仅返回 "YES" 或 "NO"，不要有其他内容。
-    如果回答是 "YES"，请同时从邮件内容中提取以下信息:
-    - 日期: YYYY-MM-DD格式
-    - 开始时间: HH:MM格式
-    - 结束时间: HH:MM格式
-    - 事件标题: 简短描述这个事件
-    - 事件描述: 详细说明
-    - 地点: 事件地点
+    If your answer is "YES", extract the following information from the email:
+    - Date: in YYYY-MM-DD format
+    - Start Time: in HH:MM format
+    - End Time: in HH:MM format
+    - Event Title: brief description of the event
+    - Event Description: detailed explanation
+    - Location: event location
     
-    以JSON格式返回这些信息，如:
-    {"需要添加": "YES", "日期": "2025-03-20", "开始时间": "14:00", "结束时间": "15:30", "事件标题": "项目会议", "事件描述": "讨论项目进度", "地点": "线上"}
-    或者
-    {"需要添加": "NO"}
+    Return this information in JSON format, like:
+    {"Calendar_Needed": "YES", "Date": "2025-03-20", "Start_Time": "14:00", "End_Time": "15:30", "Event_Title": "Project Meeting", "Event_Description": "Discuss project progress", "Location": "Online"}
+    or
+    {"Calendar_Needed": "NO"}
     """
     
     # Use custom prompt if provided, otherwise use default
@@ -151,7 +152,7 @@ def check_calendar_need(email_result, custom_prompt=None):
     if category == "B" and "reply_content" in email_result:
         # Check if the reply is a rejection
         reply = email_result["reply_content"].lower()
-        rejection_words = ["reject", "decline", "cannot attend", "unable to attend", "拒绝", "不能参加"]
+        rejection_words = ["reject", "decline", "cannot attend", "unable to attend"]
         if any(word in reply for word in rejection_words):
             return {"calendar_needed": False, "reason": "Email was rejected"}
     
@@ -160,16 +161,15 @@ def check_calendar_need(email_result, custom_prompt=None):
     sender = email_result.get("sender", "")
     
     # We need the original email body for context
-    # This assumes we have access to email_data from categorize_email
-    # If not available, this would need to be modified
     body = email_result.get("body", "")
     if not body and "original_email" in email_result:
         body = email_result["original_email"].get("body", "")
     
-    llm_input = f"发件人: {sender}\n主题: {subject}\n\n{body}\n\n{prompt}"
+    llm_input = f"From: {sender}\nSubject: {subject}\n\n{body}"
     
-    # Call the LLM to determine if calendar event is needed
-    response = deepseek(llm_input)
+    # Call the LLM to determine if calendar event is needed using Chatbot
+    calendar_chatbot = Chatbot()
+    response = calendar_chatbot.chat(llm_input, prompt)
     
     try:
         # Try to parse as JSON
@@ -184,20 +184,19 @@ def check_calendar_need(email_result, custom_prompt=None):
         else:
             # Fallback to simple YES/NO detection
             calendar_needed = "YES" in response.upper()
-            calendar_data = {"需要添加": "YES" if calendar_needed else "NO"}
+            calendar_data = {"Calendar_Needed": "YES" if calendar_needed else "NO"}
         
         # Check if calendar event is needed
-        if calendar_data.get("需要添加") == "YES":
+        if calendar_data.get("Calendar_Needed") == "YES":
             # Extract event details
-            date = calendar_data.get("日期", "")
-            start_time = calendar_data.get("开始时间", "")
-            end_time = calendar_data.get("结束时间", "")
-            title = calendar_data.get("事件标题", subject)
-            description = calendar_data.get("事件描述", "")
-            location = calendar_data.get("地点", "")
+            date = calendar_data.get("Date", "")
+            start_time = calendar_data.get("Start_Time", "")
+            end_time = calendar_data.get("End_Time", "")
+            title = calendar_data.get("Event_Title", subject)
+            description = calendar_data.get("Event_Description", "")
+            location = calendar_data.get("Location", "")
             
             # Validate the date and time formats
-            # Simple validation, can be improved
             if not (date and start_time and end_time):
                 return {"calendar_needed": False, "reason": "Incomplete event details"}
             

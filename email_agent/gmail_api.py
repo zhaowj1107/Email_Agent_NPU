@@ -201,22 +201,21 @@ def simple_draft(service, sender_email, to_email, subject, message_content):
         The created draft object
     """
     try:
-        from local_model.ds_api import deepseek
-        # 这里deepseek()是之前生邮件summary的prompt
-        # 考虑deepseek函数可以将prompt作为另一个参数传入
+        from local_model.ALLM_api import Chatbot
         
-        # Define the prompt directly within the function
-        # This prompt can be easily edited as needed
-        prompt = """
-        这是邮件的正文，请根据内容生成一个回复邮件的草稿
-        要求：
-        
+        # Define the prompt in English
+        system_msg = """
+        This is an email body. Please generate a reply draft based on the content.
+        Requirements:
+        - Be professional and concise
+        - Address the key points in the original email
+        - Maintain a respectful tone
+        - Keep the response under 300 words
         """
         
-        # Process the content using deepseek with the defined prompt
-        # Note: The current deepseek function doesn't accept a prompt parameter
-        # If deepseek function is updated to accept a prompt, this should be modified
-        processed_content = deepseek(message_content)
+        # Create a new Chatbot object and process the content
+        chatbot = Chatbot()
+        processed_content = chatbot.chat(message_content, system_msg)
         
         # Create a MIMEText message
         message = MIMEText(processed_content)
@@ -241,7 +240,7 @@ def simple_draft(service, sender_email, to_email, subject, message_content):
         return created_draft
     
     except ImportError:
-        print("Error: Could not import deepseek from local_model.ds_api")
+        print("Error: Could not import Chatbot from local_model.ALLM_api")
         return None
     except HttpError as error:
         print(f"An error occurred: {error}")
@@ -265,84 +264,85 @@ def draft_rag(service, sender_email, to_email, subject, message_content):
         The created draft object
     """
     try:
-        from local_model.ds_api import deepseek
+        from local_model.ALLM_api import Chatbot
         
-        # 步骤1: 使用LLM提取关键词
-        keyword_extraction_prompt = """
-        请从以下邮件内容中提取关键词，以逗号分隔的列表形式返回。
-        例如：school, deadline, client, project
-        只返回关键词列表，不要有其他内容。
+        # Step 1: Use LLM to extract keywords
+        keyword_extraction_system_msg = """
+        Extract keywords from the following email content as a comma-separated list.
+        For example: school, deadline, client, project
+        Return only the keyword list without any other content.
         """
         
-        # 调用LLM提取关键词
-        keywords_text = deepseek(message_content + "\n\n" + keyword_extraction_prompt)
+        # Create a Chatbot instance for keyword extraction
+        keyword_chatbot = Chatbot()
+        keywords_text = keyword_chatbot.chat(message_content, keyword_extraction_system_msg)
         
-        # 处理关键词文本，转换为列表
+        # Process the keyword text, convert to list
         keywords = [keyword.strip() for keyword in keywords_text.split(',')]
         print(f"Extracted keywords: {keywords}")
         
-        # 步骤2: 预留RAG接口调用
-        # 这里应该是调用外部RAG系统的代码
-        # 示例代码，实际实现需要替换为真实的RAG调用
+        # Step 2: Interface with RAG system
+        # This is a placeholder for the actual RAG system call
         def call_rag_system(keywords):
             """
-            调用RAG系统获取关键词的相关信息
-            实际使用时需要替换为真实的RAG系统调用
+            Call the RAG system to get information related to the keywords
+            This will be replaced with actual RAG implementation
             """
-            # 模拟RAG返回的字典
+            # Simulate RAG results
             rag_results = {
-                # 这里将来会被真实的RAG系统返回值替换
+                # This will be replaced with real RAG system return values
                 keyword: f"Sample value for {keyword}" for keyword in keywords
             }
             return rag_results
         
-        # 获取RAG结果
+        # Get RAG results
         rag_info = call_rag_system(keywords)
         print(f"RAG information: {rag_info}")
         
-        # 步骤3: 赋值prompt变量
-        prompt = f"""
-        请根据以下信息生成一封专业的邮件回复草稿:
+        # Step 3: Generate draft using LLM with RAG information
+        draft_system_msg = f"""
+        Generate a professional email reply draft based on the following information:
         
-        原始邮件主题: {subject}
+        Original email subject: {subject}
         
-        关键信息:
+        Key information:
         {', '.join([f'{k}: {v}' for k, v in rag_info.items()])}
         
-        要求:
-        1. 使用正式、专业的语言
-        2. 确保回复针对原始邮件的内容
-        3. 包含所有必要的关键信息
-        4. 保持简洁明了，不超过300字
+        Requirements:
+        1. Use formal, professional language
+        2. Ensure the reply addresses the original email content
+        3. Include all necessary key information
+        4. Keep it concise, under 300 words
         """
         
-        # 步骤4: 调用LLM生成邮件草稿
-        draft_content = deepseek(message_content + "\n\n" + prompt)
+        # Create a Chatbot instance for draft generation
+        draft_chatbot = Chatbot()
+        draft_content = draft_chatbot.chat(message_content, draft_system_msg)
         
-        # 创建MIME消息
+        # Create MIME message
         message = MIMEText(draft_content)
         message["to"] = to_email
         message["from"] = sender_email
         message["subject"] = f"Re: {subject}"
         
-        # 编码消息为base64url格式
+        # Encode message to base64url format
         encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
         
-        # 创建草稿消息
+        # Create draft message
         draft = {
             'message': {
                 'raw': encoded_message
             }
         }
         
-        # 调用Gmail API创建草稿
+        # Call Gmail API to create draft
         created_draft = service.users().drafts().create(userId="me", body=draft).execute()
         
         print(f"Draft created successfully with ID: {created_draft['id']}")
         return created_draft
     
     except ImportError:
-        print("Error: Could not import deepseek from local_model.ds_api")
+        print("Error: Could not import Chatbot from local_model.ALLM_api")
         return None
     except HttpError as error:
         print(f"An error occurred: {error}")
