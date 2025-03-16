@@ -1,4 +1,5 @@
-Email_Agent with NPU
+# Email_Agent with NPU
+
 
 # Implementation
 This app was built for the Snapdragon X Elite but designed to be platform agnostic. Performance may vary on other hardware.
