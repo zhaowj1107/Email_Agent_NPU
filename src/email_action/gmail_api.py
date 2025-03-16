@@ -45,6 +45,7 @@ def authenticate_gmail():
 
     return build("gmail", "v1", credentials=creds)
 
+
 def read_emails(service, max_results=1):
     """ 读取 Gmail 收件箱中的最新邮件并返回详细信息 """
     results = service.users().messages().list(userId="me", maxResults=max_results).execute()
@@ -84,6 +85,66 @@ def read_emails(service, max_results=1):
     print("Latest email retrieved successfully")
     return email_info
 
+
+def read_inbox(service, max_results=1):
+    """ 读取 Gmail 收件箱中的邮件（仅包含 INBOX 标签的邮件）
+    
+    Args:
+        service: The Gmail API service object
+        max_results: Maximum number of messages to retrieve (default: 1)
+    
+    Returns:
+        dict: Dictionary containing email details (sender, subject, body, message_id)
+    """
+    try:
+        # List messages with INBOX label only
+        results = service.users().messages().list(
+            userId="me", 
+            maxResults=max_results,
+            labelIds=["INBOX"]  # Only get messages with INBOX label
+        ).execute()
+        
+        messages = results.get("messages", [])
+        
+        if not messages:
+            return {"sender": "", "subject": "", "body": "No messages found in inbox."}
+        
+        # Get the latest message
+        msg = messages[0]
+        msg_data = service.users().messages().get(userId="me", id=msg["id"]).execute()
+        
+        # Extract information
+        headers = msg_data["payload"]["headers"]
+        sender = next((h["value"] for h in headers if h["name"].lower() == "from"), "Unknown Sender")
+        subject = next((h["value"] for h in headers if h["name"].lower() == "subject"), "No Subject")
+        
+        # Extract email body
+        body = ""
+        if "parts" in msg_data["payload"]:
+            for part in msg_data["payload"]["parts"]:
+                if part["mimeType"] == "text/plain":
+                    if "data" in part["body"]:
+                        body = base64.urlsafe_b64decode(part["body"]["data"]).decode("utf-8")
+                        break
+        elif "body" in msg_data["payload"] and "data" in msg_data["payload"]["body"]:
+            body = base64.urlsafe_b64decode(msg_data["payload"]["body"]["data"]).decode("utf-8")
+        
+        # Add message_id to the returned data
+        email_info = {
+            "sender": sender,
+            "subject": subject,
+            "body": body,
+            "message_id": msg["id"]
+        }
+        
+        print("Latest inbox email retrieved successfully")
+        return email_info
+        
+    except HttpError as error:
+        print(f"An error occurred: {error}")
+        return {"sender": "", "subject": "", "body": f"Error: {error}"}
+
+
 def create_email(sender, to, subject, body):
     """ 创建邮件(MIME 格式) """
     message = MIMEText(body)
@@ -92,12 +153,14 @@ def create_email(sender, to, subject, body):
     message["subject"] = subject
     return {"raw": base64.urlsafe_b64encode(message.as_bytes()).decode()}
 
+
 def send_email(service, sender, to, subject, body):
     """ 发送邮件 """
     message = create_email(sender, to, subject, body)
     message = service.users().messages().send(userId="me", body=message).execute()
     log.log_email(subject, to, body, "Sent")
     print(f"Email sent! Message ID: {message['id']}")
+
 
 def reply_email(service, sender, to, subject, body, thread_id=None, message_id=None):
     """
@@ -108,7 +171,7 @@ def reply_email(service, sender, to, subject, body, thread_id=None, message_id=N
         sender: The sender's email address
         to: The recipient's email address
         subject: The email subject (will be prefixed with 'Re:' if not already)
-        body: The email body
+        body: The email body content to respond to
         thread_id: The ID of the thread to reply to (optional)
         message_id: The ID of the specific message to reply to (optional)
     
@@ -116,17 +179,70 @@ def reply_email(service, sender, to, subject, body, thread_id=None, message_id=N
         dict: The sent message details or None if an error occurred
     """
     try:
+        # Add path to access ALLM_api module
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
+        sys.path.append(parent_dir)
+        
+        from ALLM_api import Chatbot
+        
+        # Create Chatbot object
+        chatbot = Chatbot()
+        
+        # Define system prompt for email replies
+        system_prompt = """
+        You are an expert email assistant tasked with drafting professional replies.
+        
+        Guidelines for your response:
+        1. Keep the tone professional but friendly
+        2. Be concise and to the point
+        3. Address all questions or requests in the original email
+        4. Use appropriate greetings and closings
+        5. Maintain a helpful and courteous tone
+        6. Keep replies under 200 words
+        
+        Generate a complete, ready-to-send email reply.
+        """
+        
+        # Format original email context for the chatbot
+        email_context = f"Subject: {subject}\n\nOriginal Message:\n{body}"
+        
+        # Generate reply using the chatbot
+        reply_body = chatbot.chat(email_context, system_prompt)
+        
+        # Handle None response from chatbot
+        if reply_body is None:
+            print("Error: Received None response from chatbot")
+            return None
+            
+        # Clean up the reply body
+        reply_body = reply_body.strip()
+        if not reply_body:
+            print("Error: Empty response from chatbot after cleaning")
+            return None
+            
+        try:
+            # Test if the content can be encoded in ASCII (required by MIMEText)
+            reply_body.encode('ascii', errors='replace')
+        except UnicodeEncodeError:
+            # If ASCII encoding fails, use UTF-8
+            reply_body = reply_body.encode('utf-8').decode('utf-8')
+        
         # Ensure subject has 'Re:' prefix
         if not subject.startswith('Re:'):
             subject = f'Re: {subject}'
         
         # Create a MIMEText message
-        message = MIMEText(body)
+        message = MIMEText(reply_body, _charset='utf-8')
         message['to'] = to
         message['from'] = sender
         message['subject'] = subject
         
-        # If thread_id is provided, include it in headers
+        # Add References and In-Reply-To headers for proper threading
+        message["References"] = f"<{message['subject']}>"
+        message["In-Reply-To"] = f"<{message['subject']}>"
+        
+        # Encode message to base64url format
         raw_message = {'raw': base64.urlsafe_b64encode(message.as_bytes()).decode()}
         
         if thread_id:
@@ -144,11 +260,16 @@ def reply_email(service, sender, to, subject, body, thread_id=None, message_id=N
             ).execute()
         
         print(f'Reply sent! Message ID: {sent_message["id"]}')
+        log.log_email(subject, to, body, "Reply")
         return sent_message
     
-    except HttpError as error:
-        print(f'An error occurred: {error}')
+    except ImportError as e:
+        print(f"Error importing Chatbot: {e}")
         return None
+    except HttpError as error:
+        print(f"An error occurred: {error}")
+        return None
+
 
 def archive_emails(service, message_id=None, query=None):
     """Archives a specific email by ID or emails matching the given query.
@@ -190,14 +311,17 @@ def archive_emails(service, message_id=None, query=None):
             ).execute()
 
             print(f"Archived message with ID: {message_id}")
+            log.log_email(subject, None, body, "Archived")
+            return
 
     except HttpError as error:
         print(f"An error occurred: {error}")
-
+ 
 
 def simple_draft(service, sender_email, to_email, subject, message_content):
     """
     Generate a simple draft WITHOUT calling RAG
+    and send a WhatsApp notification to the recipient
     
     Args:
         service: The Gmail API service object
@@ -216,33 +340,65 @@ def simple_draft(service, sender_email, to_email, subject, message_content):
 
         from ALLM_api import Chatbot
         
-        # Define the prompt in English
+        # Define the prompt in English - focused on generating only the reply body
         system_msg = """
-        This is an email body. Please generate a reply draft based on the content.
+        You are an email assistant. Generate ONLY the reply body for the following email.
+        Do not include any subject lines, headers, or other formatting.
         Requirements:
         - Be professional and concise
         - Address the key points in the original email
         - Maintain a respectful tone
         - Keep the response under 300 words
+        - Start with an appropriate greeting
+        - End with an appropriate closing
+        - Return ONLY the reply body text, nothing else
         """
         
         # Create a new Chatbot object and process the content
         chatbot = Chatbot()
         processed_content = chatbot.chat(message_content, system_msg)
         
-        # Create a MIMEText message
-        message = MIMEText(processed_content)
+        # Handle None response from chatbot
+        if processed_content is None:
+            print("Error: Received None response from chatbot")
+            return None
+            
+        # Clean up the processed content to ensure it's just the body
+        processed_content = processed_content.strip()
+        if not processed_content:
+            print("Error: Empty response from chatbot after cleaning")
+            return None
+            
+        try:
+            # Test if the content can be encoded in ASCII (required by MIMEText)
+            processed_content.encode('ascii', errors='replace')
+        except UnicodeEncodeError:
+            # If ASCII encoding fails, use UTF-8
+            processed_content = processed_content.encode('utf-8').decode('utf-8')
+        
+        # Create a MIMEText message with proper headers
+        message = MIMEText(processed_content, _charset='utf-8')
         message["to"] = to_email
         message["from"] = sender_email
-        message["subject"] = subject
+        
+        # Add "Re:" prefix to subject if not already present
+        if not subject.startswith("Re:"):
+            message["subject"] = f"Re: {subject}"
+        else:
+            message["subject"] = subject
+            
+        # Add References and In-Reply-To headers for proper threading
+        message["References"] = f"<{message['subject']}>"
+        message["In-Reply-To"] = f"<{message['subject']}>"
         
         # Encode the message to base64url format
         encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
         
-        # Create the draft message
+        # Create the draft message with proper structure
         draft = {
             'message': {
-                'raw': encoded_message
+                'raw': encoded_message,
+                'threadId': None  # Will be set by Gmail when sent
             }
         }
         
@@ -250,6 +406,25 @@ def simple_draft(service, sender_email, to_email, subject, message_content):
         created_draft = service.users().drafts().create(userId="me", body=draft).execute()
         
         print(f"Draft created successfully with ID: {created_draft['id']}")
+
+        # Send WhatsApp notification about the draft (without showing content)
+        try:
+            # Import the WhatsApp sender module
+            toolkit_dir = os.path.join(parent_dir, "toolkit")
+            sys.path.append(toolkit_dir)
+            from toolkit.whatsapp_sender import whatsapp_sender
+            
+            # Create notification message (without including draft content)
+            notification_message = f"A draft reply has been prepared for email with subject: '{message['subject']}'. The draft is ready in your Gmail account."
+            
+            # Send WhatsApp message using the dedicated function
+            whatsapp_sender(notification_message)
+            
+            print(f"WhatsApp notification sent for draft: {created_draft['id']}")
+        except Exception as e:
+            print(f"Failed to send WhatsApp notification: {e}")
+
+        log.log_email(message['subject'], to_email, message_content, "Draft")
         return created_draft
     
     except ImportError:
@@ -356,6 +531,25 @@ def draft_rag(service, sender_email, to_email, subject, message_content):
         created_draft = service.users().drafts().create(userId="me", body=draft).execute()
         
         print(f"Draft created successfully with ID: {created_draft['id']}")
+        
+        # Send WhatsApp notification about the draft (without showing content)
+        try:
+            # Import the WhatsApp sender module
+            toolkit_dir = os.path.join(parent_dir, "toolkit")
+            sys.path.append(toolkit_dir)
+            from toolkit.whatsapp_sender import whatsapp_sender
+            
+            # Create notification message (without including draft content)
+            notification_message = f"A RAG-enhanced draft reply has been prepared for email with subject: '{subject}'. Keywords: {', '.join(keywords[:3])}... The draft is ready in your Gmail account."
+            
+            # Send WhatsApp message using the dedicated function
+            whatsapp_sender(notification_message)
+            
+            print(f"WhatsApp notification sent for draft: {created_draft['id']}")
+        except Exception as e:
+            print(f"Failed to send WhatsApp notification: {e}")
+        
+        log.log_email(subject, to_email, message_content, "Draft")
         return created_draft
     
     except ImportError:
@@ -381,3 +575,81 @@ if __name__ == "__main__":
     body = "Hello! This is a test email sent using Gmail API and Python."
 
     send_email(service, sender_email, receiver_email, subject, body)
+
+
+    # Test archive by query (recent emails from newsletters)
+    print("\nTesting archive by query:")
+    archive_emails(service, query="from:newsletter category:primary newer_than:1d")
+    
+    # Test archive by specific ID (uncomment and add a real message ID to test)
+    # print("\nTesting archive by ID:")
+    # archive_emails(service, message_id="YOUR_MESSAGE_ID_HERE")
+    
+    print("Archive tests completed.")
+
+
+    # test simple_draft
+    print("\nTesting simple_draft function...")
+    
+    # Define test parameters
+    test_subject = "Draft Test - Meeting Preparation"
+    test_content = """
+    Dear Team,
+    
+    I would like to discuss our project progress at the upcoming meeting.
+    Please prepare updates on your assigned tasks.
+    
+    The meeting is scheduled for Friday at 2 PM.
+    
+    Best regards,
+    Project Manager
+    """
+    
+    # Create a draft email
+    draft_result = simple_draft(
+        service, 
+        sender_email, 
+        receiver_email, 
+        test_subject, 
+        test_content
+    )
+    if draft_result:
+        print(draft_result)
+        print(f"Draft created with ID: {draft_result['id']}")
+    else:
+        print("Failed to create draft")
+
+
+    # test reply_email
+    print("\nTesting reply_email function...")
+    
+    # Define test parameters for reply
+    original_email = """
+    Subject: Project Status Inquiry
+    
+    Hello,
+    
+    I'm writing to inquire about the status of our AI project. 
+    We were expecting to see the initial prototype by this week.
+    Could you please provide an update on the timeline?
+    
+    Also, do you need any additional resources from our side?
+    
+    Regards,
+    Client
+    """
+    
+    # Test reply to an email
+    reply_result = reply_email(
+        service,
+        sender_email,
+        receiver_email,
+        "Project Status Inquiry",
+        original_email
+    )
+    
+    if reply_result:
+        print(reply_result)
+        print(f"Reply sent with Message ID: {reply_result['id']}")
+    else:
+        print("Failed to send reply")
