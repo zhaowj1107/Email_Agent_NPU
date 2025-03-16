@@ -1,3 +1,31 @@
+Email_Agent with NPU
+
+# Implementation
+This app was built for the Snapdragon X Elite but designed to be platform agnostic. Performance may vary on other hardware.
+
+## Hardware
+
+Machine: Dell Latitude 7455
+Chip: Snadragon X Elite
+OS: Windows 11
+Memory: 32 GB
+
+## Software
+
+Python Version: 3.12.6
+AnythingLLM LLM Provider: Qualcomm QNN
+AnythingLLM Chat Model: Llama 3.1 8B Chat 8K
+Setup
+Install and setup AnythingLLM.
+Choose Qualcomm QNN when prompted to choose an LLM provider to target the NPU
+Choose a model of your choice when prompted. This sample uses Llama 3.1 8B Chat with 8K context
+Create a workspace by clicking "+ New Workspace"
+Generate an API key
+Click the settings button on the bottom of the left panel
+Open the "Tools" dropdown
+Click "Developer API"
+Click "Generate New API Key"
+
 # Google Cloud Services Integration
 
 This project integrates with **Google Calendar API** and **Gmail API** using **OAuth 2.0 authentication**. It allows you to access and interact with Google Calendar and Gmail data.
