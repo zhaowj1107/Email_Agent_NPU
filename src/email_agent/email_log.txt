@@ -1,0 +1,6 @@
+--- New Email at 2025-03-15 20:52:01 ---
+sender: fiveguysteam0@gmail.com
+subject: Test Email from Python_0310
+body: Hello! This is a test email sent using Gmail API and Python.
+system_time: 2025-03-15 20:52:01
+

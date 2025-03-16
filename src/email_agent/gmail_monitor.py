@@ -38,10 +38,9 @@ def get_latest_email(service):
     return email_data
 
 # 定时查询新邮件
-def monitor_email():
+def monitor_email(last_email_id = None):
     service = ga.authenticate_gmail()
     # 存储上次检查时的最新邮件ID
-    last_email_id = None
     
     while True:
         print("Checking for new emails...")
@@ -60,10 +59,11 @@ def monitor_email():
                 email_data = get_latest_email(service)
                 if email_data:
                     print("New email received:")
-                    print(email_data)
+                    
                     
                     # 使用read_emails获取详细信息
                     email_details = ga.read_emails(service)
+                    print(email_details)
                     
                     # 添加系统时间
                     email_details['system_time'] = time.strftime('%Y-%m-%d %H:%M:%S')
@@ -80,6 +80,7 @@ def monitor_email():
                     
                 # 更新最新邮件ID
                 last_email_id = newest_email_id
+                return email_data, last_email_id
             else:
                 print("No new emails since last check.")
         

@@ -11,9 +11,11 @@ import datetime
 # Step 1: 认证并获取授权
 # Change from readonly to full access
 SCOPES = ['https://www.googleapis.com/auth/calendar']
-creds = None
+
 
 def authenticate_calendar():
+    creds = None
+
     # 如果存在token_calendar.pickle文件，加载它
     if os.path.exists('token_calendar.pickle'):
         with open('token_calendar.pickle', 'rb') as token:

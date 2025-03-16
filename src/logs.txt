@@ -1,0 +1,3 @@
+<Calendar> [2025-03-15 20:16:50] 2025-3-11T10:00:00 to 2025-3-11T12:00:00 | Subject: Christmas Day | Status: Created | Content: Celebrate Christmas
+<Email> [2025-03-15 20:30:53] To: zhaowj1107@gmail.com | Subject: Test Email from Python_0315 | Status: Sent | Content: Hello! This is a test email sent using Gmail API and Python.
+<Email> [2025-03-15 20:42:03] To: zhaowj1107@gmail.com | Subject: Test Email from Python_0310 | Status: Sent | Content: Hello! This is a test email sent using Gmail API and Python.
