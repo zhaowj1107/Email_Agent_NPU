@@ -2,7 +2,6 @@ import os
 import sys
 import base64
 import pickle
-import re
 from email.mime.text import MIMEText
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -10,10 +9,12 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-module_path = os.path.abspath("toolkit")
-sys.path.append(module_path)
-
-import log_IO as log
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
+sys.path.append(parent_dir)
+import log_action as log
+import model.lmstudio as lm
+from whatsapp_sender import whatsapp_sender
 
 # Gmail API 需要的作用域（权限）
 SCOPES = ["https://www.googleapis.com/auth/gmail.modify"]
@@ -179,13 +180,6 @@ def reply_email(service, sender, to, subject, body, thread_id=None, message_id=N
         dict: The sent message details including the reply body or None if an error occurred
     """
     try:
-        # Add path to access ALLM_api module
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
-        sys.path.append(parent_dir)
-        
-        from ALLM_api import Chatbot
-        
         # Create Chatbot object
         chatbot = Chatbot()
         
@@ -357,13 +351,6 @@ def simple_draft(service, sender_email, to_email, subject, message_content):
         The created draft object
     """
     try:
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
-        sys.path.append(parent_dir)
-
-        from ALLM_api import Chatbot
-        
-        # Define the prompt in English - focused on generating only the reply body
         system_msg = """
         You are an email assistant. Generate ONLY the reply body for the following email.
         Do not include any subject lines, headers, or other formatting.
@@ -379,7 +366,7 @@ def simple_draft(service, sender_email, to_email, subject, message_content):
         """
         
         # Create a new Chatbot object and process the content
-        chatbot = Chatbot()
+        chatbot = lm.Chatbot()
         processed_content = chatbot.chat(message_content, system_msg)
         
         # Handle None response from chatbot
@@ -436,7 +423,7 @@ def simple_draft(service, sender_email, to_email, subject, message_content):
             # Import the WhatsApp sender module
             toolkit_dir = os.path.join(parent_dir, "toolkit")
             sys.path.append(toolkit_dir)
-            from toolkit.whatsapp_sender import whatsapp_sender
+            
             
             # Create notification message (without including draft content)
             notification_message = f"A draft reply has been prepared for email with subject: '{message['subject']}'. The draft is ready in your Gmail account.\n\nDraft Content:\n{processed_content}"
@@ -476,12 +463,6 @@ def draft_rag(service, sender_email, to_email, subject, message_content):
         The created draft object
     """
     try:
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
-        sys.path.append(parent_dir)
-        
-        from ALLM_api import Chatbot
-        
         # Step 1: Use LLM to extract keywords
         keyword_extraction_system_msg = """
         Extract keywords from the following email content as a comma-separated list.
@@ -490,8 +471,8 @@ def draft_rag(service, sender_email, to_email, subject, message_content):
         """
         
         # Create a Chatbot instance for keyword extraction
-        keyword_chatbot = Chatbot()
-        keywords_text = keyword_chatbot.chat(message_content, keyword_extraction_system_msg)
+        keyword_chatbot = lm.Chatbot()
+        keywords_text = keyword_chatbot.run(message_content, keyword_extraction_system_msg)
         
         # Process the keyword text, convert to list
         keywords = [keyword.strip() for keyword in keywords_text.split(',')]
@@ -532,8 +513,8 @@ def draft_rag(service, sender_email, to_email, subject, message_content):
         """
         
         # Create a Chatbot instance for draft generation
-        draft_chatbot = Chatbot()
-        draft_content = draft_chatbot.chat(message_content, draft_system_msg)
+        draft_chatbot = lm.Chatbot()
+        draft_content = draft_chatbot.run(message_content, draft_system_msg)
         
         # Create MIME message
         message = MIMEText(draft_content)
@@ -561,7 +542,6 @@ def draft_rag(service, sender_email, to_email, subject, message_content):
             # Import the WhatsApp sender module
             toolkit_dir = os.path.join(parent_dir, "toolkit")
             sys.path.append(toolkit_dir)
-            from toolkit.whatsapp_sender import whatsapp_sender
             
             # Create notification message (without including draft content)
             notification_message = f"A RAG-enhanced draft reply has been prepared for email with subject: '{subject}'. Keywords: {', '.join(keywords[:3])}... The draft is ready in your Gmail account."
@@ -587,18 +567,19 @@ def draft_rag(service, sender_email, to_email, subject, message_content):
 if __name__ == "__main__":
     service = authenticate_gmail()
     
-    # 读取邮件
-    print("Reading Emails...\n")
-    dict_latest_email = read_emails(service)
-    print(dict_latest_email)
+    # # 读取邮件
+    # print("Reading Emails...\n")
+    # # dict_latest_email = read_emails(service)
+    # dict_latest_email = read_inbox(service)
+    # print(dict_latest_email)
 
-    # 发送邮件
-    sender_email = "fiveguysteam0@gmail.com"  # 你的 Gmail 地址
-    receiver_email = "zhaowj1107@gmail.com"  # 收件人 Gmail 地址
-    subject = "Test Email from Python_0310"
-    body = "Hello! This is a test email sent using Gmail API and Python."
+    # # 发送邮件
+    # sender_email = "zhaowj1107@gmail.com"  # 你的 Gmail 地址
+    # receiver_email = "zhaowj1107@gmail.com"  # 收件人 Gmail 地址
+    # subject = "Test Email from Python_0310"
+    # body = "Hello! This is a test email sent using Gmail API and Python."
 
-    send_email(service, sender_email, receiver_email, subject, body)
+    # send_email(service, sender_email, receiver_email, subject, body)
 
 
     # Test archive by query (recent emails from newsletters)
@@ -612,68 +593,68 @@ if __name__ == "__main__":
     print("Archive tests completed.")
 
 
-    # test simple_draft
-    print("\nTesting simple_draft function...")
+    # # test simple_draft
+    # print("\nTesting simple_draft function...")
     
-    # Define test parameters
-    test_subject = "Draft Test - Meeting Preparation"
-    test_content = """
-    Dear Team,
+    # # Define test parameters
+    # test_subject = "Draft Test - Meeting Preparation"
+    # test_content = """
+    # Dear Team,
     
-    I would like to discuss our project progress at the upcoming meeting.
-    Please prepare updates on your assigned tasks.
+    # I would like to discuss our project progress at the upcoming meeting.
+    # Please prepare updates on your assigned tasks.
     
-    The meeting is scheduled for Friday at 2 PM.
+    # The meeting is scheduled for Friday at 2 PM.
     
-    Best regards,
-    Project Manager
-    """
+    # Best regards,
+    # Project Manager
+    # """
     
-    # Create a draft email
-    draft_result = simple_draft(
-        service, 
-        sender_email, 
-        receiver_email, 
-        test_subject, 
-        test_content
-    )
-    if draft_result:
-        print(draft_result)
-        print(f"Draft created with ID: {draft_result['id']}")
-    else:
-        print("Failed to create draft")
+    # # Create a draft email
+    # draft_result = simple_draft(
+    #     service, 
+    #     sender_email, 
+    #     receiver_email, 
+    #     test_subject, 
+    #     test_content
+    # )
+    # if draft_result:
+    #     print(draft_result)
+    #     print(f"Draft created with ID: {draft_result['id']}")
+    # else:
+    #     print("Failed to create draft")
 
 
-    # test reply_email
-    print("\nTesting reply_email function...")
+    # # test reply_email
+    # print("\nTesting reply_email function...")
     
-    # Define test parameters for reply
-    original_email = """
-    Subject: Project Status Inquiry
+    # # Define test parameters for reply
+    # original_email = """
+    # Subject: Project Status Inquiry
     
-    Hello,
+    # Hello,
     
-    I'm writing to inquire about the status of our AI project. 
-    We were expecting to see the initial prototype by this week.
-    Could you please provide an update on the timeline?
+    # I'm writing to inquire about the status of our AI project. 
+    # We were expecting to see the initial prototype by this week.
+    # Could you please provide an update on the timeline?
     
-    Also, do you need any additional resources from our side?
+    # Also, do you need any additional resources from our side?
     
-    Regards,
-    Client
-    """
+    # Regards,
+    # Client
+    # """
     
-    # Test reply to an email
-    reply_result = reply_email(
-        service,
-        sender_email,
-        receiver_email,
-        "Project Status Inquiry",
-        original_email
-    )
+    # # Test reply to an email
+    # reply_result = reply_email(
+    #     service,
+    #     sender_email,
+    #     receiver_email,
+    #     "Project Status Inquiry",
+    #     original_email
+    # )
     
-    if reply_result:
-        print(reply_result)
-        print(f"Reply sent with Message ID: {reply_result['id']}")
-    else:
-        print("Failed to send reply")
+    # if reply_result:
+    #     print(reply_result)
+    #     print(f"Reply sent with Message ID: {reply_result['id']}")
+    # else:
+    #     print("Failed to send reply")

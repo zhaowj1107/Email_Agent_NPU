@@ -1,17 +1,11 @@
 import os
-import sys
 import pickle
+import datetime
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from google.auth.transport.requests import Request
-import datetime
-
-module_path = os.path.abspath("toolkit")
-
-sys.path.append(module_path)
-
-import log_IO as log
+import log_action as log
 
 # pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 
@@ -21,6 +15,9 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
 def authenticate_calendar():
+    """
+    Authenticate and return a Google Calendar service object.
+    """
     creds = None
 
     # 如果存在token_calendar.pickle文件，加载它
@@ -48,6 +45,9 @@ def authenticate_calendar():
 
 
 def get_calendar_events(service, number_of_events=2):
+    """
+    Retrieve upcoming events from Google Calendar.
+    """
     # 调用 Google Calendar API
     try:
         # 获取当前日期和时间
@@ -125,4 +125,4 @@ def add_calendar_event(service, date, time_start, time_end, summary, description
 if __name__ == "__main__":
     service = authenticate_calendar()
     get_calendar_events(service, 2)
-    add_calendar_event(service,'2025-3-11', '10:00', '12:00', 'Christmas Day', 'Celebrate Christmas', 'Home')
+    add_calendar_event(service,'2025-3-23', '10:00', '12:00', 'Christmas Day', 'Celebrate Christmas', 'Home')
