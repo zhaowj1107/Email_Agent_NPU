@@ -40,16 +40,49 @@ class Chatbot:
             results = results[:think_start] + results[think_end:]
         return results.strip()
 
-    def run(self, user_message, system_prompt = None) -> None:
+
+    def deepseek(self, user_input, system_prompt):
+        """
+        function name: deepseek
+        input: user_input-->str
+        output: return message-->str
+        Call deepseek API
+        """
+        print("Calling deepseek API.")
+        client = OpenAI(api_key="sk-48b305a73fe14ff2bb9f06f05c78f2ae", base_url="https://api.deepseek.com")
+        system_prompt = f"""
+                You are an expert email analyzer with years of experience in professional communication. 
+                {system_prompt}
+                """
+        response = client.chat.completions.create(
+            model="deepseek-chat",
+            messages=[
+                {"role": "system", "content":system_prompt},
+                {"role": "user", "content": user_input},
+            ],
+            stream=False
+        )
+        
+        infor = response.choices[0].message.content
+        return infor
+
+
+    def run(self, user_message, system_prompt=None) -> None:
         """
         Run the chat application loop. The user can type messages to chat with the assistant.
         """
         try:
-            print("Agent: " + self.prompt_llm(user_message, system_prompt))
-            return self.prompt_llm(user_message, system_prompt)
+            response = self.prompt_llm(user_message, system_prompt)
+            print("Agent: " + response)
+            return response
         except Exception as e:
-            print("Error! Check the model is correctly loaded. More details in README troubleshooting section.")
-            sys.exit(f"Error details: {e}")
+            print("LM studio Error! Check the model is correctly loaded. More details in README troubleshooting section.")
+            # sys.exit(f"Error details: {e}")
+            print(".....")
+            print("using deepseek...")
+            response = self.deepseek(user_message, system_prompt)
+            print("Agent: " + response)
+            return response
 
 if __name__ == '__main__':
     # stop_loading = False
