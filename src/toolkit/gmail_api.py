@@ -9,12 +9,15 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
-sys.path.append(parent_dir)
-import log_action as log
+# current_dir = os.path.dirname(os.path.abspath(__file__))
+# parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
+# sys.path.append(parent_dir)
+# path file是全局生效, 所以即便在gmail.api中不设置绝对路径, 也能够找到src下的模块.
+
+
+import toolkit.log_action as log
 import model.lmstudio as lm
-from whatsapp_sender import whatsapp_sender
+from toolkit.whatsapp_sender import whatsapp_sender
 
 # Gmail API 需要的作用域（权限）
 SCOPES = ["https://www.googleapis.com/auth/gmail.modify"]
@@ -367,7 +370,7 @@ def simple_draft(service, sender_email, to_email, subject, message_content):
         
         # Create a new Chatbot object and process the content
         chatbot = lm.Chatbot()
-        processed_content = chatbot.chat(message_content, system_msg)
+        processed_content = chatbot.run(message_content, system_msg)
         
         # Handle None response from chatbot
         if processed_content is None:
@@ -419,21 +422,21 @@ def simple_draft(service, sender_email, to_email, subject, message_content):
         print(f"Draft created successfully with ID: {created_draft['id']}")
 
         # Send WhatsApp notification about the draft (without showing content)
-        try:
-            # Import the WhatsApp sender module
-            toolkit_dir = os.path.join(parent_dir, "toolkit")
-            sys.path.append(toolkit_dir)
+        # try:
+        #     # Import the WhatsApp sender module
+        #     toolkit_dir = os.path.join(parent_dir, "toolkit")
+        #     sys.path.append(toolkit_dir)
             
             
-            # Create notification message (without including draft content)
-            notification_message = f"A draft reply has been prepared for email with subject: '{message['subject']}'. The draft is ready in your Gmail account.\n\nDraft Content:\n{processed_content}"
+        #     # Create notification message (without including draft content)
+        #     notification_message = f"A draft reply has been prepared for email with subject: '{message['subject']}'. The draft is ready in your Gmail account.\n\nDraft Content:\n{processed_content}"
             
-            # Send WhatsApp message using the dedicated function
-            whatsapp_sender(notification_message)
+        #     # Send WhatsApp message using the dedicated function
+        #     whatsapp_sender(notification_message)
             
-            print(f"WhatsApp notification sent for draft: {created_draft['id']}")
-        except Exception as e:
-            print(f"Failed to send WhatsApp notification: {e}")
+        #     print(f"WhatsApp notification sent for draft: {created_draft['id']}")
+        # except Exception as e:
+        #     print(f"Failed to send WhatsApp notification: {e}")
 
         log.log_email(message['subject'], to_email, message_content, "Draft")
         return created_draft
@@ -445,7 +448,7 @@ def simple_draft(service, sender_email, to_email, subject, message_content):
         print(f"An error occurred: {error}")
         return None
 
-
+# this function not working now 
 def draft_rag(service, sender_email, to_email, subject, message_content):
     """
     根据邮件内容生成一组关键词如[school, deadline, client]
@@ -574,55 +577,55 @@ if __name__ == "__main__":
     # print(dict_latest_email)
 
     # # 发送邮件
-    # sender_email = "zhaowj1107@gmail.com"  # 你的 Gmail 地址
-    # receiver_email = "zhaowj1107@gmail.com"  # 收件人 Gmail 地址
+    sender_email = "zhaowj1107@gmail.com"  # 你的 Gmail 地址
+    receiver_email = "zhaowj1107@gmail.com"  # 收件人 Gmail 地址
     # subject = "Test Email from Python_0310"
     # body = "Hello! This is a test email sent using Gmail API and Python."
 
     # send_email(service, sender_email, receiver_email, subject, body)
 
 
-    # Test archive by query (recent emails from newsletters)
-    print("\nTesting archive by query:")
-    archive_emails(service, query="from:newsletter category:primary newer_than:1d")
+    # # Test archive by query (recent emails from newsletters)
+    # print("\nTesting archive by query:")
+    # archive_emails(service, query="from:newsletter category:primary newer_than:1d")
     
-    # Test archive by specific ID (uncomment and add a real message ID to test)
-    # print("\nTesting archive by ID:")
-    # archive_emails(service, message_id="YOUR_MESSAGE_ID_HERE")
+    # # Test archive by specific ID (uncomment and add a real message ID to test)
+    # # print("\nTesting archive by ID:")
+    # # archive_emails(service, message_id="YOUR_MESSAGE_ID_HERE")
     
-    print("Archive tests completed.")
+    # print("Archive tests completed.")
 
 
-    # # test simple_draft
-    # print("\nTesting simple_draft function...")
+    # test simple_draft
+    print("\nTesting simple_draft function...")
     
-    # # Define test parameters
-    # test_subject = "Draft Test - Meeting Preparation"
-    # test_content = """
-    # Dear Team,
+    # Define test parameters
+    test_subject = "Draft Test - Meeting Preparation"
+    test_content = """
+    Dear Team,
     
-    # I would like to discuss our project progress at the upcoming meeting.
-    # Please prepare updates on your assigned tasks.
+    I would like to discuss our project progress at the upcoming meeting.
+    Please prepare updates on your assigned tasks.
     
-    # The meeting is scheduled for Friday at 2 PM.
+    The meeting is scheduled for Friday at 2 PM.
     
-    # Best regards,
-    # Project Manager
-    # """
+    Best regards,
+    Project Manager
+    """
     
-    # # Create a draft email
-    # draft_result = simple_draft(
-    #     service, 
-    #     sender_email, 
-    #     receiver_email, 
-    #     test_subject, 
-    #     test_content
-    # )
-    # if draft_result:
-    #     print(draft_result)
-    #     print(f"Draft created with ID: {draft_result['id']}")
-    # else:
-    #     print("Failed to create draft")
+    # Create a draft email
+    draft_result = simple_draft(
+        service, 
+        sender_email, 
+        receiver_email, 
+        test_subject, 
+        test_content
+    )
+    if draft_result:
+        print(draft_result)
+        print(f"Draft created with ID: {draft_result['id']}")
+    else:
+        print("Failed to create draft")
 
 
     # # test reply_email

@@ -1,4 +1,6 @@
-import sys
+"""
+This module contains the Chatbot class which is used to interact with the model server.
+"""
 from openai import OpenAI
 
 
@@ -77,7 +79,7 @@ class Chatbot:
             return response
         except Exception as e:
             print("LM studio Error! Check the model is correctly loaded. More details in README troubleshooting section.")
-            # sys.exit(f"Error details: {e}")
+            print(f"Error details: {e}")
             print(".....")
             print("using deepseek...")
             response = self.deepseek(user_message, system_prompt)

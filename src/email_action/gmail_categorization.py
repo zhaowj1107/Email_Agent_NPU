@@ -6,7 +6,7 @@ parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
 sys.path.append(parent_dir)
 
 from ALLM_api import Chatbot
-from google_calendar.calendar_api import authenticate_calendar, add_calendar_event
+from Email_Agent_NPU.src.toolkit.calendar_api import authenticate_calendar, add_calendar_event
 
 def categorize_email(email_data, custom_prompt=None):
     """

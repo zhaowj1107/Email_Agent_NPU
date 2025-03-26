@@ -5,7 +5,7 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 import pickle
 
-import gmail_api as ga
+import Email_Agent_NPU.src.toolkit.gmail_api as ga
 
 """
 Gmail API 并没有直接提供实时监控邮件的功能，但你可以定期查询 Gmail 邮箱并获取新邮件。这意味着你可以设置一个定时任务（例如，每分钟查询一次 Gmail）检查是否有新邮件。
